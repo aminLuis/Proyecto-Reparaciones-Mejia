@@ -6,6 +6,8 @@ package Clases;
 import InterfacesUsuario.RegistroVehiculo;
 import InterfacesUsuario.RegistroCategorias;
 import InterfacesUsuario.PresentacionAdmin;
+import InterfacesUsuario.RegistroUsuarios;
+
 
 /**
  *
@@ -19,11 +21,12 @@ public class Taller {
         RegistroVehiculo registro = new RegistroVehiculo();
         RegistroCategorias categorias = new RegistroCategorias();
         PresentacionAdmin admin = new PresentacionAdmin();
+        RegistroUsuarios usuario = new RegistroUsuarios();
         
         //registro.setVisible(true);
         //categorias.setVisible(true);
-        admin.setVisible(true);
-        
+        //admin.setVisible(true);
+        usuario.setVisible(true);
     }
     
 }

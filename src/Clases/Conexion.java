@@ -353,5 +353,99 @@ public ResultSet obtenerDatosCategorias()throws ClassNotFoundException{
 }
 
 
+public void agregarUsuario(int user, String passwd, boolean role)throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("INSERT INTO usuario (userName,password,role) VALUES(?,?,?)");
+        
+        ps.setInt(1, user);
+        ps.setString(2, passwd);
+        ps.setBoolean(3, role);
+        
+        ps.executeUpdate();
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se ha creado el usuario con exito");
+        
+    }catch(SQLException e){
+          mensajeErrorSQL(e);       
+    }
+        
+    
+}
+
+
+public ResultSet buscarUsuario(int user)throws ClassNotFoundException{
+    
+    ResultSet rs = null; 
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("SELECT *FROM usuario WHERE userName=?");
+        
+        ps.setInt(1, user);
+        
+        rs = ps.executeQuery();
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e); 
+    }
+    
+    return rs;
+}
+
+
+public void cambiarContrasena(String nueva, int user)throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("UPDATE usuario SET password=? WHERE userName=?");
+        
+        ps.setString(1, nueva);
+        ps.setInt(2, user);
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se ha cambiado la contraseña");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
+
+
+public ResultSet datosUsuarios()throws ClassNotFoundException{
+    
+    ResultSet rs = null;
+    
+    try{
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("SELECT *FROM usuario");
+        
+        rs = ps.executeQuery();
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+    return rs;
+}
+
+
 
 }
