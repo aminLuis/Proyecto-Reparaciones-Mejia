@@ -402,7 +402,7 @@ public ResultSet buscarUsuario(int user)throws ClassNotFoundException{
 }
 
 
-public void cambiarContrasena(String nueva, int user)throws ClassNotFoundException{
+public void cambiarContrasenaUser(String nueva, int user)throws ClassNotFoundException{
     
     try{
         
@@ -444,6 +444,30 @@ public ResultSet datosUsuarios()throws ClassNotFoundException{
     }
     
     return rs;
+}
+
+
+public void eliminarUsuario(int user)throws ClassNotFoundException{
+    
+    try{
+      
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("DELETE FROM usuario WHERE userName=?");
+        
+        ps.setInt(1, user);
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se ha eliminado el usuario");
+        
+    }catch(SQLException e){
+       mensajeErrorSQL(e);   
+    }
+    
 }
 
 

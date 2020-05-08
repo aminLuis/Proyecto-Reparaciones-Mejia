@@ -4,6 +4,7 @@ package InterfacesUsuario.FormasInternas;
 import Clases.AnimacionesLabels;
 import Clases.Conexion;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -149,8 +150,11 @@ public class FormaCrearUsuario extends javax.swing.JInternalFrame {
                 
                 ResultSet temp = con.buscarUsuario(Integer.parseInt(usuario.getText()));
                 
-                if(temp==null){
+               
+                
+                if(!temp.next()){
                     con.agregarUsuario(Integer.parseInt(usuario.getText()), passwd.getText(), false);
+                    limpiarCampos();
                 }else{
                     JOptionPane.showMessageDialog(null, "El número de cédula ingresado ya existe en la base de datos",null,JOptionPane.ERROR_MESSAGE);
                 }
@@ -158,6 +162,8 @@ public class FormaCrearUsuario extends javax.swing.JInternalFrame {
             }
             
         }catch(ClassNotFoundException e){
+            JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
+        }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
         }
         

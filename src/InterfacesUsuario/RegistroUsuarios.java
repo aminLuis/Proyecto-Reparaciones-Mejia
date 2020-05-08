@@ -17,7 +17,7 @@ public class RegistroUsuarios extends javax.swing.JFrame {
     public RegistroUsuarios() {
         initComponents();
         
-        this.setExtendedState(MAXIMIZED_BOTH);
+       // this.setExtendedState(MAXIMIZED_BOTH);
         agregarComponentesLabelOpciones();
     }
 
@@ -166,7 +166,7 @@ public class RegistroUsuarios extends javax.swing.JFrame {
         labelOpciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         labelOpciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         labelOpciones.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        getContentPane().add(labelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(-380, 100, 320, 410));
+        getContentPane().add(labelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(-380, 100, 295, 410));
 
         labelOcultar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelOcultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/izquierda.png"))); // NOI18N
@@ -246,24 +246,23 @@ public class RegistroUsuarios extends javax.swing.JFrame {
         labelOpcion5.setOpaque(true);
         getContentPane().add(labelOpcion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 253, 34));
 
-        panelPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         panelPrincipal.setOpaque(false);
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1008, Short.MAX_VALUE)
+            .addGap(0, 1010, Short.MAX_VALUE)
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 1010, 630));
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 1010, 540));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo26.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, 1370, 770));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, 1370, 710));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
