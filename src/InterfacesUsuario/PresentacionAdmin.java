@@ -34,6 +34,7 @@ public class PresentacionAdmin extends javax.swing.JFrame {
         labelOpcion2 = new javax.swing.JLabel();
         labelOpcion1 = new javax.swing.JLabel();
         labelSalir = new javax.swing.JLabel();
+        labelOpcion3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,30 +99,51 @@ public class PresentacionAdmin extends javax.swing.JFrame {
             }
         });
 
+        labelOpcion3.setBackground(new java.awt.Color(255, 255, 255));
+        labelOpcion3.setFont(new java.awt.Font("Trebuchet MS", 3, 18)); // NOI18N
+        labelOpcion3.setForeground(new java.awt.Color(51, 51, 51));
+        labelOpcion3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelOpcion3.setText("Ir a crear usuario");
+        labelOpcion3.setOpaque(true);
+        labelOpcion3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelOpcion3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelOpcion3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelOpcion3MouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(55, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(98, 98, 98))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelOpcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelOpcion2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98))))
+                            .addComponent(labelOpcion2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelOpcion3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(labelOpcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
+                .addGap(38, 38, 38)
                 .addComponent(labelOpcion2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
+                .addComponent(labelOpcion3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                 .addComponent(labelSalir)
                 .addGap(26, 26, 26))
         );
@@ -176,6 +198,23 @@ public class PresentacionAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_labelOpcion2MouseClicked
 
+    private void labelOpcion3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion3MouseEntered
+        animacion.eventoMouseEntered(labelOpcion3);
+    }//GEN-LAST:event_labelOpcion3MouseEntered
+
+    private void labelOpcion3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion3MouseExited
+        animacion.eventoMouseExited(labelOpcion3);
+    }//GEN-LAST:event_labelOpcion3MouseExited
+
+    private void labelOpcion3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion3MouseClicked
+    
+        RegistroUsuarios usuario = new RegistroUsuarios();
+        
+        usuario.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_labelOpcion3MouseClicked
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -183,6 +222,7 @@ public class PresentacionAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelOpcion1;
     private javax.swing.JLabel labelOpcion2;
+    private javax.swing.JLabel labelOpcion3;
     private javax.swing.JLabel labelSalir;
     // End of variables declaration//GEN-END:variables
 }

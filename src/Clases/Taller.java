@@ -25,8 +25,8 @@ public class Taller {
         
         //registro.setVisible(true);
         //categorias.setVisible(true);
-        //admin.setVisible(true);
-        usuario.setVisible(true);
+        admin.setVisible(true);
+        //usuario.setVisible(true);
     }
     
 }

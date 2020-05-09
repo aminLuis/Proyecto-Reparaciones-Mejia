@@ -21,6 +21,7 @@ public class RegistroCategorias extends javax.swing.JFrame {
         
         //this.setExtendedState(MAXIMIZED_BOTH);
         agregarComponentesLabelOpciones();
+        bajarTitulo();
     }
 
     AnimacionesLabels animacion = new AnimacionesLabels();
@@ -115,6 +116,9 @@ public class RegistroCategorias extends javax.swing.JFrame {
         
     }
     
+    public void bajarTitulo(){
+        animacion.desplazarLabelAbajo(titulo, -100, 40);
+    }
     
     
     @SuppressWarnings("unchecked")
@@ -137,6 +141,7 @@ public class RegistroCategorias extends javax.swing.JFrame {
         labelInicio = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -349,6 +354,12 @@ public class RegistroCategorias extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, 130, 70));
 
+        titulo.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        titulo.setForeground(new java.awt.Color(255, 255, 255));
+        titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titulo.setText("Reparaciones Mejía");
+        getContentPane().add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, -100, 370, 60));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo10.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, 1370, 710));
 
@@ -401,6 +412,7 @@ public class RegistroCategorias extends javax.swing.JFrame {
                ani.jLabelXLeft(0, -380, 5, 10, labelOpciones);
         }
         
+        bajarTitulo();
     }//GEN-LAST:event_labelMenuMouseClicked
 
     private void labelOcultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOcultarMouseClicked
@@ -577,5 +589,6 @@ public class RegistroCategorias extends javax.swing.JFrame {
     private javax.swing.JLabel labelOpciones;
     private javax.swing.JPanel panelMenuBar;
     private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

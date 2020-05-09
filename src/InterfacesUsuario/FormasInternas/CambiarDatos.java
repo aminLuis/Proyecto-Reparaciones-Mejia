@@ -231,7 +231,7 @@ public class CambiarDatos extends javax.swing.JInternalFrame {
             
             Vehiculo aux = con.buscarVehiculo(Integer.parseInt(buscarNum.getText()));
             
-            if(aux==null){
+            if(aux.getNumeroInterno()<=0){
                 JOptionPane.showMessageDialog(null, "El número ingresado no existe en la base de datos",null,JOptionPane.ERROR_MESSAGE);
             }else{
                 
