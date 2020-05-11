@@ -9,7 +9,7 @@ import Clases.Conexion;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
-import Clases.Render;
+import Clases.RenderButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;

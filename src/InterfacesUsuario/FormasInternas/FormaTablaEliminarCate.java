@@ -12,7 +12,7 @@ import Clases.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import Clases.Render;
+import Clases.RenderButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -73,7 +73,7 @@ public class FormaTablaEliminarCate extends javax.swing.JInternalFrame {
         
         try{
         
-            tabla.setDefaultRenderer(Object.class, new Render());
+            tabla.setDefaultRenderer(Object.class, new RenderButton());
             
             Conexion con = new Conexion();
             ResultSet rs = con.obtenerDatosCategorias();

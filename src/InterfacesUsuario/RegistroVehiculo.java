@@ -1,6 +1,7 @@
 
 package InterfacesUsuario;
 
+import InterfacesOperaciones.FormasInternas.CodigosNFC;
 import Clases.AnimacionesLabels;
 import AppPackage.AnimationClass;
 import InterfacesUsuario.FormasInternas.RegistroDatosVehiculo;
@@ -8,7 +9,6 @@ import InterfacesUsuario.FormasInternas.CambiarDatos;
 import javax.swing.JOptionPane;
 import InterfacesUsuario.FormasInternas.FormaTablaMostrar;
 import InterfacesUsuario.FormasInternas.FormaTablaEliminar;
-import InterfacesUsuario.FormasInternas.CodigosNFC;
 import javax.swing.JInternalFrame;
 
 /**

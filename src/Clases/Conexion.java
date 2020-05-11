@@ -96,7 +96,7 @@ public static Connection conexion = null;
  
  public Vehiculo buscarVehiculo(String placa)throws ClassNotFoundException{
      
-     Vehiculo aux = null;
+     Vehiculo aux = new Vehiculo();
      
      try{
          
@@ -110,10 +110,12 @@ public static Connection conexion = null;
          
          rs = ps.executeQuery();
          
-         aux.setNumeroInterno(Integer.parseInt(rs.getInt(1)+""));
-         aux.setPlaca(rs.getInt(2)+"");
-         aux.setModelo(Integer.parseInt(rs.getInt(3)+""));
-         aux.setCilindraje(Integer.parseInt(rs.getInt(4)+""));
+         while(rs.next()){
+         aux.setNumeroInterno(Integer.parseInt(rs.getString("numInterno")));
+         aux.setPlaca(rs.getString("placa"));
+         aux.setModelo(Integer.parseInt(rs.getString("modelo")));
+         aux.setCilindraje(Integer.parseInt(rs.getString("cilindraje")));
+        }
          
          con.close();
          
@@ -468,6 +470,55 @@ public void eliminarUsuario(int user)throws ClassNotFoundException{
        mensajeErrorSQL(e);   
     }
     
+}
+
+
+
+public void registrarIngresoVehiculo(Historial nuevo)throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("INSERT INTO historial (codigo,tipo_reparacion,fechaIngreso,fechaSalida) VALUES (?,?,?,?)");
+        
+        ps.setString(1, nuevo.getCodigo());
+        ps.setString(2, nuevo.getTipo_reparacion());
+        ps.setString(3, nuevo.getFechaIngreso());
+        ps.setString(4, nuevo.getFechaSalida());
+        
+        ps.executeUpdate();
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se ha registrado el ingreso exitosamente");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+    
+}
+
+
+public ResultSet obtenerVehiculosIngresados()throws ClassNotFoundException{
+    
+    ResultSet rs = null;
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("SELECT *FROM historial");
+        
+        rs = ps.executeQuery();
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+    return rs;
 }
 
 

@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import Clases.Conexion;
-import Clases.Render;
+import Clases.RenderButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
@@ -82,7 +82,7 @@ public class FormaTablaUsuario extends javax.swing.JInternalFrame {
             Conexion con = new Conexion();
             ResultSet rs = con.datosUsuarios();
             
-            tabla.setDefaultRenderer(Object.class, new Render());
+            tabla.setDefaultRenderer(Object.class, new RenderButton());
             
             while(rs.next()){
                 

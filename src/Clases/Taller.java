@@ -3,11 +3,8 @@
 package Clases;
 
 
-import InterfacesUsuario.RegistroVehiculo;
-import InterfacesUsuario.RegistroCategorias;
 import InterfacesUsuario.PresentacionAdmin;
-import InterfacesUsuario.RegistroUsuarios;
-
+import InterfacesOperaciones.IngresoVehiculo;
 
 /**
  *
@@ -18,15 +15,13 @@ public class Taller {
 
     public static void main(String[] args) throws ClassNotFoundException {
     
-        RegistroVehiculo registro = new RegistroVehiculo();
-        RegistroCategorias categorias = new RegistroCategorias();
         PresentacionAdmin admin = new PresentacionAdmin();
-        RegistroUsuarios usuario = new RegistroUsuarios();
+        IngresoVehiculo ingreso = new IngresoVehiculo();
         
-        //registro.setVisible(true);
-        //categorias.setVisible(true);
-        admin.setVisible(true);
-        //usuario.setVisible(true);
+        //admin.setVisible(true);
+        ingreso.setVisible(true);
+        
+        
     }
     
 }

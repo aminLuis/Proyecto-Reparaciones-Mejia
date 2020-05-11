@@ -12,7 +12,7 @@ import javax.swing.JButton;
  *
  * @author Luis Carlos
  */
-public class Render extends DefaultTableCellRenderer{
+public class RenderButton extends DefaultTableCellRenderer{
 
     @Override
     public Component getTableCellRendererComponent(JTable jtable, Object o,
