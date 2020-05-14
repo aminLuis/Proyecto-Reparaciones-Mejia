@@ -3,8 +3,10 @@
 package Clases;
 
 
-import InterfacesUsuario.PresentacionAdmin;
+import InterfacesAdmin.PresentacionAdmin;
 import InterfacesOperaciones.IngresoVehiculo;
+import ModoDesarrollador.Principal;
+import Login.Log;
 
 /**
  *
@@ -17,10 +19,13 @@ public class Taller {
     
         PresentacionAdmin admin = new PresentacionAdmin();
         IngresoVehiculo ingreso = new IngresoVehiculo();
+        Principal root = new Principal();
+        Log login = new Log();
         
         //admin.setVisible(true);
-        ingreso.setVisible(true);
-        
+        //ingreso.setVisible(true);
+        //root.setVisible(true);
+        login.setVisible(true);
         
     }
     

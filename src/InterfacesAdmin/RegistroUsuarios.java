@@ -1,38 +1,88 @@
 
-package Clases;
+package InterfacesAdmin;
+
 
 import Clases.AnimacionesLabels;
 import AppPackage.AnimationClass;
-import InterfacesAdmin.FormasInternas.RegistroDatosVehiculo;
+import InterfacesAdmin.FormasInternas.FormaCrearUsuario;
+import InterfacesAdmin.FormasInternas.FormaTablaUsuario;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Luis Carlos
  */
-public class FormaEstandar extends javax.swing.JFrame {
+public class RegistroUsuarios extends javax.swing.JFrame {
 
-    public FormaEstandar() {
+    public RegistroUsuarios() {
         initComponents();
         
-        this.setExtendedState(MAXIMIZED_BOTH);
+       // this.setExtendedState(MAXIMIZED_BOTH);
         agregarComponentesLabelOpciones();
+        bajarTitulo();
     }
 
     AnimacionesLabels animacion = new AnimacionesLabels();
-       
+    FormaCrearUsuario usuario;   
+    FormaTablaUsuario tablaUsuario;
     
     
     
     public void agregarComponentesLabelOpciones(){
      labelOpciones.add(labelOpcion1);
      labelOpciones.add(labelOpcion2);
-     labelOpciones.add(labelOpcion3);
-     labelOpciones.add(labelOpcion4);
-     labelOpciones.add(labelOpcion5);
      labelOpciones.add(labelOcultar);
     }
     
     
+    public int mostrandoComponentes(){
+        
+        int cont = 0;
+        
+        try{
+            if(usuario.isShowing()){
+                cont++;
+            }
+        }catch(NullPointerException e){
+            
+        }
+        
+        try{
+            if(tablaUsuario.isShowing()){
+                cont++;
+            }
+        }catch(NullPointerException e){
+            
+        }
+        
+        return cont++;
+    }
+    
+    
+    public void validarComponentes(){
+        
+        try{
+            if(usuario.isShowing()){
+                usuario.dispose();
+            }
+        }catch(NullPointerException e){
+            
+        }
+        
+        try{
+            if(tablaUsuario.isShowing()){
+                tablaUsuario.dispose();
+            }
+        }catch(NullPointerException e){
+            
+        }
+        
+    }
+    
+    
+    public void bajarTitulo(){
+        animacion.desplazarLabelAbajo(titulo, -100, 40);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -47,10 +97,12 @@ public class FormaEstandar extends javax.swing.JFrame {
         labelOcultar = new javax.swing.JLabel();
         labelOpcion1 = new javax.swing.JLabel();
         labelOpcion2 = new javax.swing.JLabel();
-        labelOpcion3 = new javax.swing.JLabel();
-        labelOpcion4 = new javax.swing.JLabel();
-        labelOpcion5 = new javax.swing.JLabel();
         panelPrincipal = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        labelInicio = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -115,10 +167,10 @@ public class FormaEstandar extends javax.swing.JFrame {
 
         labelOpciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelOpciones.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        labelOpciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        labelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2), "Registro de usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 3, 14), new java.awt.Color(255, 255, 255))); // NOI18N
         labelOpciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         labelOpciones.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        getContentPane().add(labelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(-380, 100, 320, 410));
+        getContentPane().add(labelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(-380, 100, 295, 240));
 
         labelOcultar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelOcultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/izquierda.png"))); // NOI18N
@@ -134,12 +186,12 @@ public class FormaEstandar extends javax.swing.JFrame {
                 labelOcultarMouseExited(evt);
             }
         });
-        getContentPane().add(labelOcultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 171, -1, -1));
+        getContentPane().add(labelOcultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, -1, -1));
 
         labelOpcion1.setBackground(new java.awt.Color(255, 255, 255));
         labelOpcion1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         labelOpcion1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelOpcion1.setText("Registrar vehículo");
+        labelOpcion1.setText("Crear nuevo usuario");
         labelOpcion1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         labelOpcion1.setOpaque(true);
         labelOpcion1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -158,53 +210,85 @@ public class FormaEstandar extends javax.swing.JFrame {
         labelOpcion2.setBackground(new java.awt.Color(255, 255, 255));
         labelOpcion2.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         labelOpcion2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelOpcion2.setText("Registrar vehículo");
+        labelOpcion2.setText("Datos usuarios");
         labelOpcion2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         labelOpcion2.setOpaque(true);
+        labelOpcion2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelOpcion2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelOpcion2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelOpcion2MouseExited(evt);
+            }
+        });
         getContentPane().add(labelOpcion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 253, 34));
 
-        labelOpcion3.setBackground(new java.awt.Color(255, 255, 255));
-        labelOpcion3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        labelOpcion3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelOpcion3.setText("Registrar vehículo");
-        labelOpcion3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        labelOpcion3.setOpaque(true);
-        getContentPane().add(labelOpcion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 253, 34));
-
-        labelOpcion4.setBackground(new java.awt.Color(255, 255, 255));
-        labelOpcion4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        labelOpcion4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelOpcion4.setText("Registrar vehículo");
-        labelOpcion4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        labelOpcion4.setOpaque(true);
-        getContentPane().add(labelOpcion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 253, 34));
-
-        labelOpcion5.setBackground(new java.awt.Color(255, 255, 255));
-        labelOpcion5.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        labelOpcion5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelOpcion5.setText("Registrar vehículo");
-        labelOpcion5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        labelOpcion5.setOpaque(true);
-        getContentPane().add(labelOpcion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 253, 34));
-
-        panelPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         panelPrincipal.setOpaque(false);
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1008, Short.MAX_VALUE)
+            .addGap(0, 1010, Short.MAX_VALUE)
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 1010, 630));
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 1010, 540));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo10.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, 1370, 770));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelInicio.setBackground(new java.awt.Color(255, 255, 255));
+        labelInicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/inicio 32px.png"))); // NOI18N
+        labelInicio.setOpaque(true);
+        labelInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelInicioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelInicioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelInicioMouseExited(evt);
+            }
+        });
+        jPanel1.add(labelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 33, 33));
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 3, 11)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Inicio");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 50, -1));
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/acceso directo.png"))); // NOI18N
+        jLabel2.setOpaque(true);
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 11, 33, 33));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, 130, 70));
+
+        titulo.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        titulo.setForeground(new java.awt.Color(255, 255, 255));
+        titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titulo.setText("Reparaciones Mejía");
+        titulo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tituloMouseEntered(evt);
+            }
+        });
+        getContentPane().add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, -100, 370, 60));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo26.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, 1370, 710));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -255,6 +339,7 @@ public class FormaEstandar extends javax.swing.JFrame {
                ani.jLabelXLeft(0, -380, 5, 10, labelOpciones);
         }
         
+        bajarTitulo();
     }//GEN-LAST:event_labelMenuMouseClicked
 
     private void labelOcultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOcultarMouseClicked
@@ -274,25 +359,92 @@ public class FormaEstandar extends javax.swing.JFrame {
 
     private void labelOpcion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion1MouseClicked
         
-        
+       if(mostrandoComponentes()>0){
+           
+           int op = JOptionPane.showConfirmDialog(null, "¿Desea cerrar la forma actual?",null,JOptionPane.WARNING_MESSAGE);
+            
+            if(op==0){
+                
+                validarComponentes();
+                usuario = new FormaCrearUsuario();
+                panelPrincipal.add(usuario);
+                usuario.setLocation(160, 50);
+                usuario.setVisible(true);
+            }
+       
+       }else{
+                usuario = new FormaCrearUsuario();
+                panelPrincipal.add(usuario);
+                usuario.setLocation(160, 50);
+                usuario.setVisible(true);
+       }
     }//GEN-LAST:event_labelOpcion1MouseClicked
+
+    private void labelOpcion2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion2MouseEntered
+        animacion.eventoMouseEntered(labelOpcion2);
+    }//GEN-LAST:event_labelOpcion2MouseEntered
+
+    private void labelOpcion2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion2MouseExited
+        animacion.eventoMouseExited(labelOpcion2);
+    }//GEN-LAST:event_labelOpcion2MouseExited
+
+    private void labelOpcion2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion2MouseClicked
+        
+        if(mostrandoComponentes()>0){
+            
+            int op = JOptionPane.showConfirmDialog(null, "¿Desea cerrar la forma actual?",null,JOptionPane.WARNING_MESSAGE);
+            
+            if(op==0){
+                validarComponentes();
+                
+                tablaUsuario = new FormaTablaUsuario();
+                panelPrincipal.add(tablaUsuario);
+                tablaUsuario.setVisible(true);
+            }
+        }else{
+                tablaUsuario = new FormaTablaUsuario();
+                panelPrincipal.add(tablaUsuario);
+                tablaUsuario.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_labelOpcion2MouseClicked
+
+    private void labelInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelInicioMouseClicked
+        PresentacionAdmin presentacion = new PresentacionAdmin();
+        presentacion.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_labelInicioMouseClicked
+
+    private void labelInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelInicioMouseEntered
+        animacion.eventoMouseEntered(labelInicio);
+    }//GEN-LAST:event_labelInicioMouseEntered
+
+    private void labelInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelInicioMouseExited
+        animacion.eventoMouseExited(labelInicio);
+    }//GEN-LAST:event_labelInicioMouseExited
+
+    private void tituloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tituloMouseEntered
+        animacion.desplazarLabelAbajo(titulo, -100, 40);
+    }//GEN-LAST:event_tituloMouseEntered
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelCerrar;
+    private javax.swing.JLabel labelInicio;
     private javax.swing.JLabel labelMenu;
     private javax.swing.JLabel labelMenuBar;
     private javax.swing.JLabel labelMinimizar;
     private javax.swing.JLabel labelOcultar;
     private javax.swing.JLabel labelOpcion1;
     private javax.swing.JLabel labelOpcion2;
-    private javax.swing.JLabel labelOpcion3;
-    private javax.swing.JLabel labelOpcion4;
-    private javax.swing.JLabel labelOpcion5;
     private javax.swing.JLabel labelOpciones;
     private javax.swing.JPanel panelMenuBar;
     private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

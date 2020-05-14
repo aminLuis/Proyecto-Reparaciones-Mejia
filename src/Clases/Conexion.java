@@ -355,7 +355,7 @@ public ResultSet obtenerDatosCategorias()throws ClassNotFoundException{
 }
 
 
-public void agregarUsuario(int user, String passwd, boolean role)throws ClassNotFoundException{
+public void agregarUsuario(long user, String passwd, boolean role)throws ClassNotFoundException{
     
     try{
         
@@ -364,7 +364,7 @@ public void agregarUsuario(int user, String passwd, boolean role)throws ClassNot
         
         ps = con.prepareStatement("INSERT INTO usuario (userName,password,role) VALUES(?,?,?)");
         
-        ps.setInt(1, user);
+        ps.setLong(1, user);
         ps.setString(2, passwd);
         ps.setBoolean(3, role);
         
@@ -381,7 +381,7 @@ public void agregarUsuario(int user, String passwd, boolean role)throws ClassNot
 }
 
 
-public ResultSet buscarUsuario(int user)throws ClassNotFoundException{
+public ResultSet buscarUsuario(long user)throws ClassNotFoundException{
     
     ResultSet rs = null; 
     
@@ -392,7 +392,7 @@ public ResultSet buscarUsuario(int user)throws ClassNotFoundException{
         
         ps = con.prepareStatement("SELECT *FROM usuario WHERE userName=?");
         
-        ps.setInt(1, user);
+        ps.setLong(1, user);
         
         rs = ps.executeQuery();
         
@@ -404,7 +404,7 @@ public ResultSet buscarUsuario(int user)throws ClassNotFoundException{
 }
 
 
-public void cambiarContrasenaUser(String nueva, int user)throws ClassNotFoundException{
+public void cambiarContrasenaUser(String nueva, long user)throws ClassNotFoundException{
     
     try{
         
@@ -414,7 +414,7 @@ public void cambiarContrasenaUser(String nueva, int user)throws ClassNotFoundExc
         ps = con.prepareStatement("UPDATE usuario SET password=? WHERE userName=?");
         
         ps.setString(1, nueva);
-        ps.setInt(2, user);
+        ps.setLong(2, user);
         
         ps.executeUpdate();
         
@@ -449,7 +449,7 @@ public ResultSet datosUsuarios()throws ClassNotFoundException{
 }
 
 
-public void eliminarUsuario(int user)throws ClassNotFoundException{
+public void eliminarUsuario(long user)throws ClassNotFoundException{
     
     try{
       
@@ -458,7 +458,7 @@ public void eliminarUsuario(int user)throws ClassNotFoundException{
         
         ps = con.prepareStatement("DELETE FROM usuario WHERE userName=?");
         
-        ps.setInt(1, user);
+        ps.setLong(1, user);
         
         ps.executeUpdate();
         
@@ -520,6 +520,92 @@ public ResultSet obtenerVehiculosIngresados()throws ClassNotFoundException{
     
     return rs;
 }
+
+
+public int contarRegistrosVehiculos()throws ClassNotFoundException{
+    
+        int cont = 0;
+
+        try{
+
+            Connection con = conectar();    
+            PreparedStatement ps;  
+            ResultSet rs;
+            
+            ps = con.prepareStatement("SELECT *FROM vehiculo");
+
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                cont++;
+            }
+            
+            ps.close();
+
+        }catch(SQLException e){
+            mensajeErrorSQL(e);
+        }
+    
+    return cont;
+}
+
+
+
+public int contarRegistrosReparaciones()throws ClassNotFoundException{
+    
+        int cont = 0;
+
+        try{
+
+            Connection con = conectar();    
+            PreparedStatement ps;  
+            ResultSet rs;
+            
+            ps = con.prepareStatement("SELECT *FROM reparaciones");
+
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                cont++;
+            }
+            
+            ps.close();
+
+        }catch(SQLException e){
+            mensajeErrorSQL(e);
+        }
+    
+    return cont;
+}
+
+
+public int contarRegistrosUsuarios()throws ClassNotFoundException{
+    
+        int cont = 0;
+
+        try{
+
+            Connection con = conectar();    
+            PreparedStatement ps;  
+            ResultSet rs;
+            
+            ps = con.prepareStatement("SELECT *FROM usuario");
+
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                cont++;
+            }
+            
+            ps.close();
+
+        }catch(SQLException e){
+            mensajeErrorSQL(e);
+        }
+    
+    return cont;
+}
+
 
 
 
