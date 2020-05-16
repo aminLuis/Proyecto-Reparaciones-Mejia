@@ -7,6 +7,7 @@ import InterfacesAdmin.PresentacionAdmin;
 import InterfacesOperaciones.IngresoVehiculo;
 import ModoDesarrollador.Principal;
 import Login.Log;
+import InterfacesAdmin.RegistroVehiculo;
 
 /**
  *
@@ -21,11 +22,13 @@ public class Taller {
         IngresoVehiculo ingreso = new IngresoVehiculo();
         Principal root = new Principal();
         Log login = new Log();
+        RegistroVehiculo vehiculo = new RegistroVehiculo();
         
         //admin.setVisible(true);
         //ingreso.setVisible(true);
         //root.setVisible(true);
-        login.setVisible(true);
+        //login.setVisible(true);
+        vehiculo.setVisible(true);
         
     }
     

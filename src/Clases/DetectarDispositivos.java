@@ -1,15 +1,11 @@
 
 package Clases;
 
-import gnu.io.CommPort;
-import java.util.Enumeration;
-import gnu.io.CommPortIdentifier;
-import gnu.io.PortInUseException;
-import gnu.io.SerialPort;
-import gnu.io.UnsupportedCommOperationException;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.Scanner;
+import javax.swing.JOptionPane;
+import jssc.SerialPort;
+import jssc.SerialPortException;
+import jssc.SerialPortList;
+
 
 /**
  *
@@ -17,44 +13,71 @@ import java.util.Scanner;
  */
 public class DetectarDispositivos {
     
-public void detectarPuerto() throws PortInUseException, IOException, UnsupportedCommOperationException{
     
-   Enumeration commports = CommPortIdentifier.getPortIdentifiers();
+private String dato;    
     
-   CommPortIdentifier myCPI = null;
-   
-   Scanner entrada;
-   PrintStream salida;
-   
-   
-   while(commports.hasMoreElements()){
-       
-      myCPI = (CommPortIdentifier) commports.nextElement();
-       
-       if(myCPI.getName().equals("COM5")){
-         break;
-       }
-   }
-    
-   CommPort puerto =   myCPI.open("Puerto serial",1000);
-   SerialPort mySp = (SerialPort) puerto;
-   
-   mySp.setSerialPortParams(19200, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-   
-   entrada = new Scanner(mySp.getInputStream());
-   salida = new PrintStream(mySp.getOutputStream());
-   
-   
-    while(!entrada.hasNext()){
-        
-        entrada.close();
-        entrada = null;
-        entrada = new Scanner(mySp.getInputStream());
-    }
-    
-    String codigo = entrada.next();
-   
+
+public DetectarDispositivos(){
+    dato = "";
 }
-    
-    
+
+
+public void setDato(String dat){
+    dato = dat;
+}
+public String getDato(){
+    return dato;
+}
+
+
+public String ObtenerPuerto() {
+
+        String defport = "";
+        String[] ports = SerialPortList.getPortNames();
+        for (String name : ports) {
+            for (int i = 0; i < ports.length; i++) {
+                defport = ports[i];
+            }
+        }
+        return defport;
+    }
+
+
+
+public boolean EscanearNFC() {
+        boolean estado = false;
+        SerialPort serialPort = new SerialPort("COM5");
+        
+        try {
+           
+            serialPort.openPort();
+            serialPort.setParams(9600, 8, 1, 0);
+            setDato(serialPort.readString(8));
+            serialPort.closePort();
+            estado = true;
+            
+        } catch (SerialPortException e) {
+           // JOptionPane.showMessageDialog(null, "Ha ocurrido un error: "+ e.getMessage(),null, JOptionPane.ERROR_MESSAGE);
+        } 
+        
+        System.out.print(getDato());
+        return estado;
+
+    }
+
+    public void cerrarPuerto() {
+        
+        SerialPort serialPort = new SerialPort("COM5");
+     
+        try{
+        
+        if(serialPort.isOpened()){
+            serialPort.closePort();
+        }
+        
+        }catch(SerialPortException e){
+            JOptionPane.showMessageDialog(null, "Error al cerrar puerto. Error: "+e.getMessage());
+        }
+    }
+
 }

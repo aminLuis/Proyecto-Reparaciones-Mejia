@@ -473,8 +473,17 @@ public void eliminarUsuario(long user)throws ClassNotFoundException{
 }
 
 
+/**
+ * 
+ *  CRUD PARA EL INGRESO DE UN VEHICULO AL TALLER, LOS DATOS LLEGAN EN UN OBJETO (NUEVO)
+ *  DE LA CLASE HISTORIAL
+ * 
+     * @param nuevo
+     * @throws java.lang.ClassNotFoundException
+ **/
 
-public void registrarIngresoVehiculo(Historial nuevo)throws ClassNotFoundException{
+
+public void registrarHistorialVehiculo(Historial nuevo)throws ClassNotFoundException{
     
     try{
         
@@ -501,7 +510,16 @@ public void registrarIngresoVehiculo(Historial nuevo)throws ClassNotFoundExcepti
 }
 
 
-public ResultSet obtenerVehiculosIngresados()throws ClassNotFoundException{
+/**
+ *  MÉTODO QUE RETORNA EL HISTORIAL DE UN VEHÍCULO, ES DECIR, TODAS LAS REPARACIONES
+ *  QUE ÉSTE HA RECIBIDO CON SUS RESPECTIVAS FECHAS
+ * 
+     * @param numInterno
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+public ResultSet obtenerHistorialVehiculo(int numInterno)throws ClassNotFoundException{
     
     ResultSet rs = null;
     
@@ -510,7 +528,228 @@ public ResultSet obtenerVehiculosIngresados()throws ClassNotFoundException{
         Connection con = conectar();
         PreparedStatement ps;
         
-        ps = con.prepareStatement("SELECT *FROM historial");
+        ps = con.prepareStatement("SELECT *FROM historial WHERE numInterno=?");
+        
+        ps.setInt(1, numInterno);
+        rs = ps.executeQuery();
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+    return rs;
+}
+
+
+/**
+ *  MÉTODO PARA CAMBIAR CÓDIGO NFC EN LA BASE DE DATOS, EN CASO DE QUE EL
+ *  ORIGINAL SE HAYA PERDIDO
+ * 
+     * @param numInterno
+     * @param nuevo
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+
+public void cambiarNFCenHistorial(int numInterno, String nuevo)throws ClassNotFoundException{
+    
+    try{
+      
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("UPDATE codigosnfc SET(codigo) WHERE numInterno=?");
+        
+        ps.setInt(1, numInterno);
+        ps.setString(2, nuevo);
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se ha cambiado el código");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
+
+
+
+
+
+/**
+ * 
+ *  CRUD REGISTRO DE INGRESO DE UN VEHICULO
+ * 
+     * @param nfc
+     * @param fecha
+     * @param estado
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public void registrarIngresoVehiculo(String nfc, String fecha, boolean estado)throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("INSERT INTO ingreso (codigo,fecha,salida) VALUES (?,?,?)");
+        
+        ps.setString(1, nfc);
+        ps.setString(2, fecha);
+        ps.setBoolean(3, estado);
+        
+        ps.executeUpdate();
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se ha registrado el ingreso");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+}
+
+
+/**
+ *  MÉTODO PARA BUSCAR EL INGRESO DE UN VEHICULO POR MEDIO DE SU CÓDIGO NFC,
+ *  EL MÉTODO ARROJA EL ESTADO DE SALIDA (SALIÓ O NO SALIÓ DEL TALLER) Y
+ *  LA FECHA EN QUE ÉSTE INGRESÓ
+ * 
+     * @param nfc
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public ResultSet obetenerIngresoVehiculo(String nfc)throws ClassNotFoundException{
+    
+    ResultSet rs = null;
+    
+        try{
+
+            Connection con = conectar();
+            PreparedStatement ps;
+
+            ps = con.prepareStatement("SELECT *FROM ingreso WHERE codigo=?");
+
+            ps.setString(1, nfc);
+
+            rs = ps.executeQuery();
+
+        }catch(SQLException e){
+            mensajeErrorSQL(e);
+        }
+ 
+    return rs;
+}
+
+
+/**
+ * 
+ *  MÉTODO PARA REGISTRAR LOS CÓDIGOS NFC ASOCIADOS A CADA VEHÍCULO Y A SU HISTORIAL
+ *  DE REPARACIONES
+ * 
+     * @param nfc
+     * @param numInterno
+     * @param disponible
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public void registrarNFCs(String nfc, int numInterno, boolean disponible)throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("INSERT INTO codigosnfc (codigo,numInterno,disponible) VALUES (?,?,?)");
+        
+        ps.setString(1, nfc);
+        ps.setInt(2, numInterno);
+        ps.setBoolean(3, disponible);
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se ha asociado el código al vehículo");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
+
+/**
+ *  MÉTODO QUE VERIFICA SI UN CÓDIGO NFC YA ESTÁ REGISTRADO Y ASOCIADO A UN 
+ *  VEHÍCULO
+ * 
+     * @param nfc
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public boolean verificarDisponibilidadNFC(String nfc)throws ClassNotFoundException{
+    
+    boolean disponible = true;
+    
+        try{
+
+                Connection con = conectar();
+                PreparedStatement ps;
+                ResultSet rs;
+
+                ps = con.prepareStatement("SELECT *FROM codigosnfc WHERE codigo=?");
+
+                ps.setString(1, nfc);
+                rs = ps.executeQuery();
+
+                while(rs.next()){
+
+                    disponible = rs.getBoolean("disponible");
+                }
+
+            rs.close();
+
+        }catch(SQLException e){
+            mensajeErrorSQL(e);
+        }
+    
+    return disponible;
+}
+
+
+
+/**
+ *  MÉTODO PARA VERIFICAR SI UN VEHÍCULO YA TIENE ASOCIADO UN CÓDIGO NFC, PUESTO
+ *  QUE NO PUEDE TENER MÁS DE UN CÓDIGO NFC
+ * 
+ * 
+     * @param numInterno
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public ResultSet verificarCodigoEnVehiculo(int numInterno)throws ClassNotFoundException{
+    
+    ResultSet rs = null;
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("SELECT *FROM codigosnfc WHERE numInterno=?");
+        
+        ps.setInt(1, numInterno);
         
         rs = ps.executeQuery();
         
@@ -520,6 +759,74 @@ public ResultSet obtenerVehiculosIngresados()throws ClassNotFoundException{
     
     return rs;
 }
+
+
+
+/**
+ *  MÉTODO QUE MUESTRA TODOS LOS CÓDIGOS NFC REGISTRADOS EN LA BASE DE DATOS
+ *  
+ * 
+ * 
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+
+public ResultSet obtenerNFCsRegistrados()throws ClassNotFoundException{
+    
+    ResultSet rs = null;
+    
+      try{
+          
+          Connection con = conectar();
+          PreparedStatement ps;
+          
+          ps = con.prepareStatement("SELECT *FROM codigosnfc");
+          
+          rs = ps.executeQuery();
+          
+      }catch(SQLException e){
+          mensajeErrorSQL(e);
+      }
+    
+    return rs;
+}
+
+
+/**
+ *  MÉTODO QUE ELIMINA UN CÓDIGO NFC DE LA BASE DE DATOS
+ * 
+ *
+     * @param numInterno
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+
+public void eliminarNFC(int numInterno)throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("DELETE *FROM codigosnfc WHERE numInterno=?");
+        
+        ps.setInt(1, numInterno);
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se ha eliminado el código");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
+
 
 
 public int contarRegistrosVehiculos()throws ClassNotFoundException{

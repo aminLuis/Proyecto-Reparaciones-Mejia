@@ -1,7 +1,7 @@
 
 package InterfacesAdmin;
 
-import InterfacesOperaciones.FormasInternas.CodigosNFC;
+
 import Clases.AnimacionesLabels;
 import AppPackage.AnimationClass;
 import InterfacesAdmin.FormasInternas.RegistroDatosVehiculo;
@@ -9,7 +9,9 @@ import InterfacesAdmin.FormasInternas.CambiarDatos;
 import javax.swing.JOptionPane;
 import InterfacesAdmin.FormasInternas.FormaTablaMostrar;
 import InterfacesAdmin.FormasInternas.FormaTablaEliminar;
-import javax.swing.JInternalFrame;
+import InterfacesAdmin.FormasInternas.FormaAsociarNFC;
+import InterfacesAdmin.FormasInternas.FormaTablaNFCs;
+import InterfacesAdmin.FormasInternas.FormaTablaHistorial;
 
 /**
  *
@@ -30,7 +32,9 @@ public class RegistroVehiculo extends javax.swing.JFrame {
     CambiarDatos cambiar;
     FormaTablaMostrar tablaMostrar;
     FormaTablaEliminar tablaEliminar;
-    CodigosNFC cod;
+    FormaAsociarNFC nfc;
+    FormaTablaNFCs tablaNFC;
+    FormaTablaHistorial historial;
     
     
     public void agregarComponentesLabelOpciones(){
@@ -39,6 +43,9 @@ public class RegistroVehiculo extends javax.swing.JFrame {
      labelOpciones.add(labelOpcion3);
      labelOpciones.add(labelOpcion4);
      labelOpciones.add(labelOpcion5);
+     labelOpciones.add(labelOpcion6);
+     labelOpciones.add(labelOpcion7);
+     labelOpciones.add(labelOpcion8);
      labelOpciones.add(labelOcultar);
     }
     
@@ -66,6 +73,24 @@ public class RegistroVehiculo extends javax.swing.JFrame {
             try{
                 if(tablaEliminar.isShowing()){
                     tablaEliminar.dispose();
+                }
+            }catch(NullPointerException e){}
+            
+            try{
+                if(nfc.isShowing()){
+                    nfc.dispose();
+                }
+            }catch(NullPointerException e){}
+            
+            try{
+                if(tablaNFC.isShowing()){
+                    tablaNFC.dispose();
+                }
+            }catch(NullPointerException e){}
+            
+            try{
+                if(historial.isShowing()){
+                    historial.dispose();
                 }
             }catch(NullPointerException e){}
             
@@ -100,7 +125,25 @@ public class RegistroVehiculo extends javax.swing.JFrame {
                        cont++;
                     }
                 }catch(NullPointerException e){}
+                
+                try{
+                    if(nfc.isShowing()){
+                       cont++;
+                    }
+                }catch(NullPointerException e){}
+                
+                 try{
+                    if(tablaNFC.isShowing()){
+                       cont++;
+                    }
+                }catch(NullPointerException e){}
 
+                try{
+                    if(historial.isShowing()){
+                       cont++;
+                    }
+                }catch(NullPointerException e){}
+                 
         
         return cont;
     }
@@ -127,6 +170,9 @@ public class RegistroVehiculo extends javax.swing.JFrame {
         labelOpcion3 = new javax.swing.JLabel();
         labelOpcion4 = new javax.swing.JLabel();
         labelOpcion5 = new javax.swing.JLabel();
+        labelOpcion6 = new javax.swing.JLabel();
+        labelOpcion8 = new javax.swing.JLabel();
+        labelOpcion7 = new javax.swing.JLabel();
         panelPrincipal = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -146,6 +192,9 @@ public class RegistroVehiculo extends javax.swing.JFrame {
         labelMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pulsorAbajo 32px.png"))); // NOI18N
         labelMinimizar.setOpaque(true);
         labelMinimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelMinimizarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 labelMinimizarMouseEntered(evt);
             }
@@ -200,7 +249,7 @@ public class RegistroVehiculo extends javax.swing.JFrame {
         labelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2), "Menú registros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 3, 14), new java.awt.Color(255, 255, 255))); // NOI18N
         labelOpciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         labelOpciones.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        getContentPane().add(labelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(-380, 100, 295, 410));
+        getContentPane().add(labelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(-380, 100, 295, 590));
 
         labelOcultar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelOcultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/izquierda.png"))); // NOI18N
@@ -216,7 +265,7 @@ public class RegistroVehiculo extends javax.swing.JFrame {
                 labelOcultarMouseExited(evt);
             }
         });
-        getContentPane().add(labelOcultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 348, -1, -1));
+        getContentPane().add(labelOcultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 540, -1, -1));
 
         labelOpcion1.setBackground(new java.awt.Color(255, 255, 255));
         labelOpcion1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
@@ -312,6 +361,57 @@ public class RegistroVehiculo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(labelOpcion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 253, 34));
+
+        labelOpcion6.setBackground(new java.awt.Color(255, 255, 255));
+        labelOpcion6.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        labelOpcion6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelOpcion6.setText("NFCs asociados");
+        labelOpcion6.setOpaque(true);
+        labelOpcion6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelOpcion6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelOpcion6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelOpcion6MouseExited(evt);
+            }
+        });
+        getContentPane().add(labelOpcion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 351, 253, 34));
+
+        labelOpcion8.setBackground(new java.awt.Color(255, 255, 255));
+        labelOpcion8.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        labelOpcion8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelOpcion8.setText("Cambiar NFC en historial");
+        labelOpcion8.setOpaque(true);
+        labelOpcion8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelOpcion8MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelOpcion8MouseExited(evt);
+            }
+        });
+        getContentPane().add(labelOpcion8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 474, 253, 34));
+
+        labelOpcion7.setBackground(new java.awt.Color(255, 255, 255));
+        labelOpcion7.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        labelOpcion7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelOpcion7.setText("Historial vehículo");
+        labelOpcion7.setOpaque(true);
+        labelOpcion7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelOpcion7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelOpcion7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelOpcion7MouseExited(evt);
+            }
+        });
+        getContentPane().add(labelOpcion7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 412, 253, 34));
 
         panelPrincipal.setOpaque(false);
 
@@ -574,18 +674,18 @@ public class RegistroVehiculo extends javax.swing.JFrame {
                 if(op==0){
                     validarComponentes();
                     
-                    cod = new CodigosNFC();
-                    panelPrincipal.add(cod);
-                    cod.setLocation(160, 50);
-                    cod.setVisible(true);
+                    nfc = new FormaAsociarNFC();
+                    panelPrincipal.add(nfc);
+                    nfc.setLocation(160, 30);
+                    nfc.setVisible(true);
                 }
                 
             }else{
                     
-                    cod = new CodigosNFC();
-                    panelPrincipal.add(cod);
-                    cod.setLocation(160, 50);
-                    cod.setVisible(true);
+                    nfc = new FormaAsociarNFC();
+                    panelPrincipal.add(nfc);
+                    nfc.setLocation(160, 30);
+                    nfc.setVisible(true);
             }
     }//GEN-LAST:event_labelOpcion5MouseClicked
 
@@ -602,6 +702,82 @@ public class RegistroVehiculo extends javax.swing.JFrame {
         presentacion.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_labelInicioMouseClicked
+
+    private void labelMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizarMouseClicked
+         this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_labelMinimizarMouseClicked
+
+    private void labelOpcion6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion6MouseEntered
+        animacion.eventoMouseEntered(labelOpcion6);
+    }//GEN-LAST:event_labelOpcion6MouseEntered
+
+    private void labelOpcion6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion6MouseExited
+        animacion.eventoMouseExited(labelOpcion6);
+    }//GEN-LAST:event_labelOpcion6MouseExited
+
+    private void labelOpcion6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion6MouseClicked
+       
+        if(mostrandoComponentes()>0){
+            
+            int op = JOptionPane.showConfirmDialog(null, "¿Desea cerrar la forma actual?",null,JOptionPane.WARNING_MESSAGE);
+                
+                if(op==0){
+                    
+                    validarComponentes();
+                    
+                    tablaNFC = new FormaTablaNFCs();
+                    panelPrincipal.add(tablaNFC);
+                    tablaNFC.setVisible(true);
+                    
+                }
+        
+        }else{
+                    tablaNFC = new FormaTablaNFCs();
+                    panelPrincipal.add(tablaNFC);
+                    tablaNFC.setVisible(true);
+            
+        }
+        
+    }//GEN-LAST:event_labelOpcion6MouseClicked
+
+    private void labelOpcion7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion7MouseEntered
+        animacion.eventoMouseEntered(labelOpcion7);
+    }//GEN-LAST:event_labelOpcion7MouseEntered
+
+    private void labelOpcion7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion7MouseExited
+        animacion.eventoMouseExited(labelOpcion7);
+    }//GEN-LAST:event_labelOpcion7MouseExited
+
+    private void labelOpcion7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion7MouseClicked
+        
+        if(mostrandoComponentes()>0){
+            
+            int op = JOptionPane.showConfirmDialog(null, "¿Desea cerrar la forma actual?",null,JOptionPane.WARNING_MESSAGE);
+                
+                if(op==0){
+                    
+                    validarComponentes();
+                    
+                    historial = new FormaTablaHistorial();
+                    panelPrincipal.add(historial);
+                    historial.setVisible(true);
+                }
+        }else{
+            
+                    historial = new FormaTablaHistorial();
+                    panelPrincipal.add(historial);
+                    historial.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_labelOpcion7MouseClicked
+
+    private void labelOpcion8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion8MouseEntered
+       animacion.eventoMouseEntered(labelOpcion8);
+    }//GEN-LAST:event_labelOpcion8MouseEntered
+
+    private void labelOpcion8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion8MouseExited
+        animacion.eventoMouseExited(labelOpcion8);
+    }//GEN-LAST:event_labelOpcion8MouseExited
 
    
 
@@ -621,6 +797,9 @@ public class RegistroVehiculo extends javax.swing.JFrame {
     private javax.swing.JLabel labelOpcion3;
     private javax.swing.JLabel labelOpcion4;
     private javax.swing.JLabel labelOpcion5;
+    private javax.swing.JLabel labelOpcion6;
+    private javax.swing.JLabel labelOpcion7;
+    private javax.swing.JLabel labelOpcion8;
     private javax.swing.JLabel labelOpciones;
     private javax.swing.JPanel panelMenuBar;
     private javax.swing.JPanel panelPrincipal;
