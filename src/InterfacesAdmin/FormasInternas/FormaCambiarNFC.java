@@ -4,7 +4,6 @@ package InterfacesAdmin.FormasInternas;
 
 import Clases.AnimacionesLabels;
 import Clases.Conexion;
-import Clases.Historial;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -38,7 +37,7 @@ public class FormaCambiarNFC extends javax.swing.JInternalFrame {
     }
     
     
-    public String buscarEnHistorial(){
+    public String buscarEnCodigos(){
         
         String nfc = "";
         
@@ -58,6 +57,43 @@ public class FormaCambiarNFC extends javax.swing.JInternalFrame {
         return nfc;
     }
     
+    
+    public String buscarEnHistorial(){
+        
+        String nfc = "";
+        
+        try{
+            
+            Conexion con = new Conexion();
+            ResultSet rs = con.obtenerHistorialVehiculo(Integer.parseInt(numInterno.getText()));
+            
+            while(rs.next()){
+                
+                nfc = rs.getString("codigo");
+            }
+            
+        }catch(ClassNotFoundException | SQLException e){
+            JOptionPane.showMessageDialog(null, "Error: "+e.getMessage(),null,JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return nfc;
+    }
+    
+    
+    public void cambiarNFC(){
+        
+        try{
+            
+            Conexion con = new Conexion();
+            
+            con.cambiarNFCenHistorial(Integer.parseInt(numInterno.getText()), nuevo.getText());
+            
+        }catch(ClassNotFoundException e){
+            
+        }
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -67,13 +103,13 @@ public class FormaCambiarNFC extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        viejo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        nuevo = new javax.swing.JTextField();
         cambiar = new javax.swing.JLabel();
+        label = new javax.swing.JLabel();
 
-        setBorder(null);
+        setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.red, 2));
         setClosable(true);
         setTitle("Cambiar NFC en historial");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,33 +153,38 @@ public class FormaCambiarNFC extends javax.swing.JInternalFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Código NFC actual");
 
-        jTextField2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        jTextField2.setOpaque(false);
+        viejo.setEditable(false);
+        viejo.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        viejo.setForeground(new java.awt.Color(255, 255, 255));
+        viejo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        viejo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        viejo.setOpaque(false);
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Será cambiado a");
 
-        jTextField1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        jTextField1.setOpaque(false);
+        nuevo.setEditable(false);
+        nuevo.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        nuevo.setForeground(new java.awt.Color(255, 255, 255));
+        nuevo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        nuevo.setOpaque(false);
 
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cambiar 24px.png"))); // NOI18N
-        jLabel5.setOpaque(true);
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        cambiar.setBackground(new java.awt.Color(255, 255, 255));
+        cambiar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cambiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cambiar 24px.png"))); // NOI18N
+        cambiar.setOpaque(true);
+        cambiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cambiarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel5MouseEntered(evt);
+                cambiarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel5MouseExited(evt);
+                cambiarMouseExited(evt);
             }
         });
 
@@ -161,12 +202,12 @@ public class FormaCambiarNFC extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(viejo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 12, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(117, 117, 117)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -174,22 +215,22 @@ public class FormaCambiarNFC extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viejo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addComponent(cambiar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 290, 150));
 
-        cambiar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cambiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo17.jpg"))); // NOI18N
-        getContentPane().add(cambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 371, 511));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo17.jpg"))); // NOI18N
+        getContentPane().add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 371, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -204,22 +245,60 @@ public class FormaCambiarNFC extends javax.swing.JInternalFrame {
 
     private void buscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseClicked
        
+        
         if(validarCampo()){
             
             
+            if(buscarEnCodigos().equals("")||buscarEnHistorial().equals("")){
+                
+                if(buscarEnCodigos().equals("")){
+                    JOptionPane.showMessageDialog(null, "El número interno no existe en la tabla 'codigosnfc'",null,JOptionPane.ERROR_MESSAGE);
+                }
+                
+                if(buscarEnHistorial().equals("")){
+                    JOptionPane.showMessageDialog(null, "El número interno no existe en la tabla 'historial'",null,JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }else{
+                
+                if(buscarEnCodigos().equals(buscarEnHistorial())){
+                    JOptionPane.showMessageDialog(null, "El NFC de la tabla 'codigosnfc' es igual al de la tabla 'historial'\n"+
+                            "Debe eliminar el código de NFCs asociados primero",
+                            null,JOptionPane.ERROR_MESSAGE);
+                }else{
+                    
+                    viejo.setText(buscarEnHistorial());
+                    nuevo.setText(buscarEnCodigos());
+                    numInterno.setEnabled(false);
+                    
+                }
+                
+                
+            }
             
             
         }
         
     }//GEN-LAST:event_buscarMouseClicked
 
-    private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
+    private void cambiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiarMouseEntered
         animacion.eventoMouseEntered(cambiar);
-    }//GEN-LAST:event_jLabel5MouseEntered
+    }//GEN-LAST:event_cambiarMouseEntered
 
-    private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
+    private void cambiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiarMouseExited
         animacion.eventoMouseExited(cambiar);
-    }//GEN-LAST:event_jLabel5MouseExited
+    }//GEN-LAST:event_cambiarMouseExited
+
+    private void cambiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiarMouseClicked
+        
+        if(viejo.getText().equals("")||nuevo.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El número interno no fue hallado en una de las tablas"
+            ,null,JOptionPane.ERROR_MESSAGE);
+        }else{
+            cambiarNFC();
+        }
+        
+    }//GEN-LAST:event_cambiarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -228,10 +307,10 @@ public class FormaCambiarNFC extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel label;
+    private javax.swing.JTextField nuevo;
     private javax.swing.JTextField numInterno;
+    private javax.swing.JTextField viejo;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,6 +12,7 @@ import InterfacesAdmin.FormasInternas.FormaTablaEliminar;
 import InterfacesAdmin.FormasInternas.FormaAsociarNFC;
 import InterfacesAdmin.FormasInternas.FormaTablaNFCs;
 import InterfacesAdmin.FormasInternas.FormaTablaHistorial;
+import InterfacesAdmin.FormasInternas.FormaCambiarNFC;
 
 /**
  *
@@ -35,6 +36,7 @@ public class RegistroVehiculo extends javax.swing.JFrame {
     FormaAsociarNFC nfc;
     FormaTablaNFCs tablaNFC;
     FormaTablaHistorial historial;
+    FormaCambiarNFC cambiarNFC;
     
     
     public void agregarComponentesLabelOpciones(){
@@ -94,6 +96,12 @@ public class RegistroVehiculo extends javax.swing.JFrame {
                 }
             }catch(NullPointerException e){}
             
+            try{
+                if(cambiarNFC.isShowing()){
+                    cambiarNFC.dispose();
+                }
+            }catch(NullPointerException e){}
+            
     }
     
     
@@ -144,6 +152,13 @@ public class RegistroVehiculo extends javax.swing.JFrame {
                     }
                 }catch(NullPointerException e){}
                  
+                try{
+                    if(cambiarNFC.isShowing()){
+                       cont++;
+                    }
+                }catch(NullPointerException e){}
+                
+                
         
         return cont;
     }
@@ -386,6 +401,9 @@ public class RegistroVehiculo extends javax.swing.JFrame {
         labelOpcion8.setText("Cambiar NFC en historial");
         labelOpcion8.setOpaque(true);
         labelOpcion8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelOpcion8MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 labelOpcion8MouseEntered(evt);
             }
@@ -778,6 +796,32 @@ public class RegistroVehiculo extends javax.swing.JFrame {
     private void labelOpcion8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion8MouseExited
         animacion.eventoMouseExited(labelOpcion8);
     }//GEN-LAST:event_labelOpcion8MouseExited
+
+    private void labelOpcion8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOpcion8MouseClicked
+        
+        if(mostrandoComponentes()>0){
+            
+            int op = JOptionPane.showConfirmDialog(null, "¿Desea cerrar la forma actual?",null,JOptionPane.WARNING_MESSAGE);
+                
+                if(op==0){
+                    
+                    validarComponentes();
+                    
+                    cambiarNFC = new FormaCambiarNFC();
+                    panelPrincipal.add(cambiarNFC);
+                    cambiarNFC.setLocation(160, 40);
+                    cambiarNFC.setVisible(true);
+                   
+                }
+            }else{
+
+                       cambiarNFC = new FormaCambiarNFC();
+                       panelPrincipal.add(cambiarNFC);
+                       cambiarNFC.setLocation(160, 40);
+                       cambiarNFC.setVisible(true);
+            }
+        
+    }//GEN-LAST:event_labelOpcion8MouseClicked
 
    
 
