@@ -582,27 +582,29 @@ public void cambiarNFCenHistorial(int numInterno, String nuevo)throws ClassNotFo
 
 /**
  * 
- *  CRUD REGISTRO DE INGRESO DE UN VEHICULO
+ *  CRUD REGISTRO DE INGRESO DE UN VEHICULO EN LA TABLA "ingreso"
  * 
      * @param nfc
+     * @param numInterno
      * @param fecha
      * @param estado
      * @throws java.lang.ClassNotFoundException
  **/
 
 
-public void registrarIngresoVehiculo(String nfc, String fecha, boolean estado)throws ClassNotFoundException{
+public void registrarIngresoVehiculo(String nfc, int numInterno, String fecha, boolean estado)throws ClassNotFoundException{
     
     try{
         
         Connection con = conectar();
         PreparedStatement ps;
         
-        ps = con.prepareStatement("INSERT INTO ingreso (codigo,fecha,salida) VALUES (?,?,?)");
+        ps = con.prepareStatement("INSERT INTO ingreso (codigo,numInterno,fecha,salida) VALUES (?,?,?,?)");
         
         ps.setString(1, nfc);
-        ps.setString(2, fecha);
-        ps.setBoolean(3, estado);
+        ps.setInt(2, numInterno);
+        ps.setString(3, fecha);
+        ps.setBoolean(4, estado);
         
         ps.executeUpdate();
         ps.close();
@@ -647,6 +649,105 @@ public ResultSet obetenerIngresoVehiculo(String nfc)throws ClassNotFoundExceptio
  
     return rs;
 }
+
+
+/**
+ *  MÉTODO QUE OBTIENE TODOS LOS REGISTROS DE LA TABLAS "ingreso" CON EL
+ *  FIN DE VER TODOS LOS VEHÍCULOS QUE AÚN NO HAN SIDO DADO DE ALTA
+ * 
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public ResultSet obtenerVehiculosIngresados()throws ClassNotFoundException{
+    
+    ResultSet rs = null;
+    
+    
+     try{
+         
+         Connection con = conectar();
+         PreparedStatement ps;
+         
+         ps = con.prepareStatement("SELECT *FROM ingreso WHERE salida=false");
+         
+         rs = ps.executeQuery();
+         
+     }catch(SQLException e){
+         mensajeErrorSQL(e);
+     }
+    
+    
+    
+    return rs;
+}
+
+
+/**
+ *  MÉTODO PARA ELIMINAR UN INGRESO DE UN VEHÍCULO REGISTRADO EN LA TABLA
+ *  "ingreso"
+ * 
+     * @param numInterno
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public void eliminarIngresoVehiculo(int numInterno)throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+
+            ps = con.prepareStatement("DELETE FROM ingreso WHERE numInterno=?");
+
+            ps.setInt(1, numInterno);
+
+            ps.executeUpdate();
+
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "El vehículo fue eliminado de la lista de ingresados");
+        
+    }catch(SQLException e){
+         mensajeErrorSQL(e);
+    }
+    
+}
+
+
+/**
+ *  MÉTODO PARA CAMBIAR EL ESTADO DE SALIDA DE UN VEHÍCULO EN LA TABLA 
+ *  "ingreso"
+ * 
+     * @param numInterno
+     * @param salida
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public void cambiarEstadoSalida(int numInterno, boolean salida )throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+            ps = con.prepareStatement("UPDATE ingreso SET(salida) WHERE numInterno=?");
+
+            ps.setBoolean(1, salida);
+
+            ps.executeUpdate();
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);   
+    }
+    
+    
+}
+
+
 
 
 /**
@@ -761,9 +862,52 @@ public ResultSet verificarCodigoEnVehiculo(int numInterno)throws ClassNotFoundEx
 }
 
 
+/**
+ * 
+ *  MÉTODO PARA OBTENER EL NÚMERO INTERNO DE UN VEHÍCULO EN LA TABLA "codigosnfc"
+ * 
+     * @param nfc
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public int obtenerNumInternoingresado(String nfc)throws ClassNotFoundException{
+    
+    int numInterno = 0;
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        ps = con.prepareStatement("SELECT *FROM codigosnfc WHERE codigo=?");
+        
+          ps.setString(1, nfc);
+        
+             rs = ps.executeQuery();
+        
+                while(rs.next()){
+
+                    numInterno = rs.getInt("numInterno");
+                }
+
+        rs.close();
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+    
+    return numInterno;
+}
+
+
 
 /**
- *  MÉTODO QUE MUESTRA TODOS LOS CÓDIGOS NFC REGISTRADOS EN LA BASE DE DATOS
+ *  MÉTODO QUE MUESTRA TODOS LOS CÓDIGOS NFC REGISTRADOS EN LA BASE DE DATOS, EN 
+ *  LA TABLA "codigosnfc"
  *  
  * 
  * 
@@ -795,7 +939,8 @@ public ResultSet obtenerNFCsRegistrados()throws ClassNotFoundException{
 
 
 /**
- *  MÉTODO QUE ELIMINA UN CÓDIGO NFC DE LA BASE DE DATOS
+ *  MÉTODO QUE ELIMINA UN CÓDIGO NFC DE LA BASE DE DATOS, EN LA TABLA
+ *  "codigosnfc"
  * 
  *
      * @param numInterno

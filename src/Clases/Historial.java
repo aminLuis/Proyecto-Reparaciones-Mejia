@@ -9,6 +9,7 @@ public class Historial {
 
 
 private String codigo;
+private int numInterno;
 private String tipo_reparacion;
 private String fechaIngreso;
 private String fechaSalida;
@@ -16,6 +17,7 @@ private String fechaSalida;
 
 public Historial(){
     codigo = "";
+    numInterno = 0;
     tipo_reparacion = "";
     fechaIngreso = "";
     fechaSalida = "";
@@ -29,6 +31,17 @@ public Historial(){
         this.codigo = codigo;
     }
 
+    public int getNumInterno() {
+        return numInterno;
+    }
+
+    public void setNumInterno(int numInterno) {
+        this.numInterno = numInterno;
+    }
+
+    
+    
+    
     public String getTipo_reparacion() {
         return tipo_reparacion;
     }

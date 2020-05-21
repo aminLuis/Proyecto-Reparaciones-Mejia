@@ -6,7 +6,8 @@ import Clases.AnimacionesLabels;
 import InterfacesOperaciones.FormasInternas.ReparacionesRealizadas;
 import InterfacesOperaciones.FormasInternas.FormaIngresar;
 import javax.swing.JOptionPane;
-import InterfacesOperaciones.FormasInternas.CodigosNFC;
+import InterfacesOperaciones.FormasInternas.FormaDarSalida;
+import InterfacesOperaciones.FormasInternas.FormaTablaIngresos;
 
 
 /**
@@ -22,8 +23,9 @@ public class IngresoVehiculo extends javax.swing.JFrame {
     
     AnimacionesLabels animacion = new AnimacionesLabels();
     ReparacionesRealizadas reparaciones;
-    CodigosNFC codigos;
-    
+    FormaDarSalida salida;
+    FormaIngresar ingreso;
+    FormaTablaIngresos tabla;
     
     public int mostrandoComponentes(){
         
@@ -38,7 +40,23 @@ public class IngresoVehiculo extends javax.swing.JFrame {
         }
         
         try{
-            if(codigos.isShowing()){
+            if(salida.isShowing()){
+                cont++;
+            }
+        }catch(NullPointerException e){
+            
+        }
+        
+        try{
+            if(ingreso.isShowing()){
+                cont++;
+            }
+        }catch(NullPointerException e){
+            
+        }
+        
+        try{
+            if(tabla.isShowing()){
                 cont++;
             }
         }catch(NullPointerException e){
@@ -60,12 +78,50 @@ public class IngresoVehiculo extends javax.swing.JFrame {
         }
         
         try{
-            if(codigos.isShowing()){
-                codigos.dispose();
+            if(salida.isShowing()){
+                salida.dispose();
             }
         }catch(NullPointerException e){
             
         }
+        
+        try{
+            if(ingreso.isShowing()){
+                ingreso.dispose();
+            }
+        }catch(NullPointerException e){
+            
+        }
+        
+        try{
+            if(tabla.isShowing()){
+                tabla.dispose();
+            }
+        }catch(NullPointerException e){
+            
+        }
+    }
+    
+    
+    
+    public void validarGuardadoHistorial(){
+        
+        try{
+        
+            if(salida.getAgregado()){
+
+                JOptionPane.showMessageDialog(null, "Se agregaron categorias a un vehículo\n"+
+                        "Será eliminado de la lista de ingresos",null,JOptionPane.WARNING_MESSAGE);
+                
+                
+                salida.eliminarDeListaIngreso();
+                salida.setAgregado(false);
+            }
+ 
+        }catch(NullPointerException e){
+           
+        }
+        
     }
     
     
@@ -81,6 +137,10 @@ public class IngresoVehiculo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         labelIngreso = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        labelLista = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        labelHistorial = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         labelOpciones = new javax.swing.JLabel();
         panelPrincipal = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -159,13 +219,13 @@ public class IngresoVehiculo extends javax.swing.JFrame {
                 labelSalidaMouseExited(evt);
             }
         });
-        getContentPane().add(labelSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 69, 71));
+        getContentPane().add(labelSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 69, 71));
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Salida");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 60, -1));
+        jLabel2.setText("Historial");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 70, -1));
 
         labelIngreso.setBackground(new java.awt.Color(255, 255, 255));
         labelIngreso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -187,8 +247,51 @@ public class IngresoVehiculo extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Ingreso");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 130, 60, -1));
+        jLabel3.setText("En lista");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 70, -1));
+
+        labelLista.setBackground(new java.awt.Color(255, 255, 255));
+        labelLista.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/listado 64px.png"))); // NOI18N
+        labelLista.setOpaque(true);
+        labelLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelListaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelListaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelListaMouseExited(evt);
+            }
+        });
+        getContentPane().add(labelLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, 69, 71));
+
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Ingreso");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 130, 60, -1));
+
+        labelHistorial.setBackground(new java.awt.Color(255, 255, 255));
+        labelHistorial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/historial 64px.png"))); // NOI18N
+        labelHistorial.setOpaque(true);
+        labelHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelHistorialMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelHistorialMouseExited(evt);
+            }
+        });
+        getContentPane().add(labelHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 69, 71));
+
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Salida");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 70, -1));
 
         labelOpciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         getContentPane().add(labelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 870, 120));
@@ -225,7 +328,27 @@ public class IngresoVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_labelMinimizarMouseExited
 
     private void labelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseClicked
-        System.exit(0);
+        
+        try{
+        
+        
+            if(salida.getAgregado()){
+
+                JOptionPane.showMessageDialog(null, "Se agregaron categorias a un vehículo\n"+
+                        "Será eliminado de la lista de ingresos",null,JOptionPane.WARNING_MESSAGE);
+
+                salida.eliminarDeListaIngreso();
+                
+                 System.exit(0);
+                
+            }else{
+                System.exit(0);
+            }
+
+        
+        }catch(NullPointerException e){
+            System.exit(0);
+        }
     }//GEN-LAST:event_labelCerrarMouseClicked
 
     private void labelCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseEntered
@@ -278,18 +401,21 @@ public class IngresoVehiculo extends javax.swing.JFrame {
             
             if(op==0){
                 
+                validarGuardadoHistorial();
+                
                 validarComponentes();
                 
-                reparaciones = new ReparacionesRealizadas();
-                panelPrincipal.add(reparaciones);
-                reparaciones.setLocation(300, 20);
-                reparaciones.setVisible(true);
+                salida = new FormaDarSalida();
+                panelPrincipal.add(salida);
+                salida.setLocation(290, 20);
+                salida.setVisible(true);
             }
         }else{
-                reparaciones = new ReparacionesRealizadas();
-                panelPrincipal.add(reparaciones);
-                reparaciones.setLocation(300, 20);
-                reparaciones.setVisible(true);
+               
+                salida = new FormaDarSalida();
+                panelPrincipal.add(salida);
+                salida.setLocation(290, 20);
+                salida.setVisible(true);
         }
         
     }//GEN-LAST:event_labelSalidaMouseClicked
@@ -302,23 +428,69 @@ public class IngresoVehiculo extends javax.swing.JFrame {
             
             if(op==0){
                 
+                validarGuardadoHistorial();
+                
                 validarComponentes();
                 
-                codigos = new CodigosNFC();
-                panelPrincipal.add(codigos);
-                codigos.setLocation(490, 20);
-                codigos.setVisible(true);
+                ingreso = new FormaIngresar();
+                panelPrincipal.add(ingreso);
+                ingreso.setLocation(490, 20);
+                ingreso.setVisible(true);
             }
             
         }else{
             
-                codigos = new CodigosNFC();
-                panelPrincipal.add(codigos);
-                codigos.setLocation(490, 20);
-                codigos.setVisible(true);
+                ingreso = new FormaIngresar();
+                panelPrincipal.add(ingreso);
+                ingreso.setLocation(490, 20);
+                ingreso.setVisible(true);
         }
         
     }//GEN-LAST:event_labelIngresoMouseClicked
+
+    private void labelListaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelListaMouseEntered
+       animacion.eventoMouseEntered(labelLista);
+    }//GEN-LAST:event_labelListaMouseEntered
+
+    private void labelListaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelListaMouseExited
+        animacion.eventoMouseExited(labelLista);
+    }//GEN-LAST:event_labelListaMouseExited
+
+    private void labelListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelListaMouseClicked
+        
+        if(mostrandoComponentes()>0){
+            
+             int op = JOptionPane.showConfirmDialog(null, "¿Desea cerrar la forma actual?","Advertencia",JOptionPane.WARNING_MESSAGE);
+            
+            if(op==0){
+                
+                validarGuardadoHistorial();
+                
+                validarComponentes();
+                
+                tabla = new FormaTablaIngresos();
+                panelPrincipal.add(tabla);
+                tabla.setLocation(300, 10);
+                tabla.setVisible(true);
+            }
+            
+        }else{
+            
+                tabla = new FormaTablaIngresos();
+                panelPrincipal.add(tabla);
+                tabla.setLocation(300, 10);
+                tabla.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_labelListaMouseClicked
+
+    private void labelHistorialMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelHistorialMouseEntered
+       animacion.eventoMouseEntered(labelHistorial);
+    }//GEN-LAST:event_labelHistorialMouseEntered
+
+    private void labelHistorialMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelHistorialMouseExited
+        animacion.eventoMouseExited(labelHistorial);
+    }//GEN-LAST:event_labelHistorialMouseExited
 
    
 
@@ -326,8 +498,12 @@ public class IngresoVehiculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel labelCerrar;
+    private javax.swing.JLabel labelHistorial;
     private javax.swing.JLabel labelIngreso;
+    private javax.swing.JLabel labelLista;
     private javax.swing.JLabel labelMenu;
     private javax.swing.JLabel labelMenuBar;
     private javax.swing.JLabel labelMinimizar;

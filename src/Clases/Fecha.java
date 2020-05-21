@@ -1,7 +1,9 @@
 
 package Clases;
 
-import java.util.Date;
+
+import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 /**
  *
@@ -12,11 +14,16 @@ public class Fecha {
     
 public String fechaActual(){
     
-    Date fecha = new Date();
+    Calendar date = new GregorianCalendar();
+    String actual;
     
-        String actual;
-
-        actual = fecha.getDay()+"/"+fecha.getMonth()+"/"+fecha.getYear();
+        int anio = date.get(Calendar.YEAR);
+        int mes = date.get(Calendar.MONTH);
+        mes = mes+1;
+        int dia = date.get(Calendar.DAY_OF_MONTH);
+    
+    
+    actual = dia +"/"+mes+"/"+anio;
     
     return actual;
 }    

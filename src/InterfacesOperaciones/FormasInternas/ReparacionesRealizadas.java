@@ -5,13 +5,12 @@ import javax.swing.table.DefaultTableModel;
 import Clases.Conexion;
 import Clases.RenderButton;
 import java.sql.ResultSet;
-import javax.swing.JCheckBox;
-import Clases.RenderCheckBox;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,7 +58,7 @@ public class ReparacionesRealizadas extends javax.swing.JInternalFrame {
     public void mostrarTabla()throws ClassNotFoundException{
          
         JButton btn = new JButton();
-        ImageIcon icon = new ImageIcon("src/Imagenes/seleccionar 24px.png");
+        ImageIcon icon = new ImageIcon("src/Imagenes/chequear 24px.png");
         
         btn.setIcon(icon);
         
@@ -134,6 +133,11 @@ public class ReparacionesRealizadas extends javax.swing.JInternalFrame {
         tabla.setRowHeight(25);
         tabla.setSelectionBackground(java.awt.Color.red);
         tabla.setShowVerticalLines(false);
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 700, 320));
@@ -144,6 +148,37 @@ public class ReparacionesRealizadas extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+       
+        int columna = tabla.getColumnModel().getColumnIndexAtX(evt.getX());
+        int fila = evt.getY()/tabla.getRowHeight();
+        
+        if(fila<tabla.getRowCount()&&columna>=0&&columna<tabla.getColumnCount()&&columna>=0){
+            
+            Object value = tabla.getValueAt(fila, columna);
+            
+            if(value instanceof JButton){
+                
+                ((JButton)value).doClick();
+                
+                JButton btn = (JButton) value;
+                
+                int ide = Integer.parseInt(String.valueOf(tabla.getValueAt(fila, 0)));
+                
+                int op = JOptionPane.showConfirmDialog(null, "Se guardará la categoría en la base de datos\n"+
+                        "¿Desea continuar?","Advertencia",JOptionPane.WARNING_MESSAGE);
+                
+                if(op==0){
+                   
+                }
+                
+                
+            }
+            
+        }
+        
+    }//GEN-LAST:event_tablaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
