@@ -4,6 +4,7 @@ package ModoDesarrollador.FormasInternas;
 
 import Clases.AnimacionesLabels;
 import Clases.Conexion;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,6 +31,9 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
             numVehiculos.setText(con.contarRegistrosVehiculos()+"");
             numReparaciones.setText(con.contarRegistrosReparaciones()+"");
             numUsuarios.setText(con.contarRegistrosUsuarios()+"");
+            numHistorial.setText(con.contarRegistrosHistorial()+"");
+            numCodigos.setText(con.contarRegistrosCodigosNFC()+"");
+            numIngresos.setText(con.contarRegistrosIngresos()+"");
             
         }catch(ClassNotFoundException e){
             
@@ -67,6 +71,11 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         numUsuarios = new javax.swing.JTextField();
         borrar5 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        borrar6 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        numIngresos = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setBorder(null);
@@ -91,6 +100,9 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
         borrar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete 64px.png"))); // NOI18N
         borrar1.setOpaque(true);
         borrar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                borrar1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 borrar1MouseEntered(evt);
             }
@@ -107,14 +119,14 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addComponent(borrar1)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(numVehiculos))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(borrar1)))
-                .addContainerGap())
+                        .addComponent(numVehiculos))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,9 +142,9 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 200, 170));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 230, 170));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Tabla reparaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 3, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Tabla categorias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 3, 14))); // NOI18N
         jPanel2.setOpaque(false);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -150,6 +162,9 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
         borrar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete 64px.png"))); // NOI18N
         borrar2.setOpaque(true);
         borrar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                borrar2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 borrar2MouseEntered(evt);
             }
@@ -167,13 +182,13 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(borrar2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addComponent(borrar2)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(10, 10, 10)
-                        .addComponent(numReparaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(numReparaciones))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +204,7 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 50, 200, 170));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 50, 230, 170));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Tabla historial", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 3, 14))); // NOI18N
         jPanel3.setOpaque(false);
@@ -209,6 +224,9 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
         borrar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete 64px.png"))); // NOI18N
         borrar3.setOpaque(true);
         borrar3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                borrar3MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 borrar3MouseEntered(evt);
             }
@@ -225,14 +243,14 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(borrar3)
+                        .addGap(16, 16, 16))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(numHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(borrar3)))
-                .addGap(16, 16, 16))
+                        .addComponent(numHistorial))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +266,7 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 200, 170));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, 230, 170));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Tabla codigosnfc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 3, 14))); // NOI18N
         jPanel4.setOpaque(false);
@@ -268,6 +286,9 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
         borrar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete 64px.png"))); // NOI18N
         borrar4.setOpaque(true);
         borrar4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                borrar4MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 borrar4MouseEntered(evt);
             }
@@ -285,13 +306,13 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(borrar4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addComponent(borrar4)
+                        .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(10, 10, 10)
-                        .addComponent(numCodigos, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(numCodigos))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,7 +328,7 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 200, 170));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 230, 170));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Tabla usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 3, 14))); // NOI18N
         jPanel5.setOpaque(false);
@@ -327,6 +348,9 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
         borrar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete 64px.png"))); // NOI18N
         borrar5.setOpaque(true);
         borrar5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                borrar5MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 borrar5MouseEntered(evt);
             }
@@ -344,13 +368,13 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(borrar5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addComponent(borrar5)
+                        .addContainerGap())
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(10, 10, 10)
-                        .addComponent(numUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(numUsuarios))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,7 +390,68 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, 200, 170));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 250, 230, 170));
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Tabla ingreso", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 3, 14))); // NOI18N
+        jPanel6.setOpaque(false);
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/base de datos 64px.png"))); // NOI18N
+
+        borrar6.setBackground(new java.awt.Color(255, 255, 255));
+        borrar6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        borrar6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete 64px.png"))); // NOI18N
+        borrar6.setOpaque(true);
+        borrar6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                borrar6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                borrar6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                borrar6MouseExited(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        jLabel13.setText("Total registros");
+
+        numIngresos.setEditable(false);
+        numIngresos.setBackground(new java.awt.Color(240, 240, 240));
+        numIngresos.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        numIngresos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(borrar6)
+                        .addContainerGap())
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(numIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(borrar6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(numIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, 230, 170));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo36.jpg"))); // NOI18N
@@ -415,6 +500,119 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
         animacion.eventoMouseExited(borrar5);
     }//GEN-LAST:event_borrar5MouseExited
 
+    private void borrar6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrar6MouseEntered
+        animacion.eventoMouseEntered(borrar6);
+    }//GEN-LAST:event_borrar6MouseEntered
+
+    private void borrar6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrar6MouseExited
+        animacion.eventoMouseExited(borrar6);
+    }//GEN-LAST:event_borrar6MouseExited
+
+    private void borrar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrar1MouseClicked
+        
+        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea borrar todos los registros de ésta tabla?",
+                null,JOptionPane.WARNING_MESSAGE);
+        
+        if(op==0){
+            
+            try{
+            Conexion con = new Conexion();
+            con.borrarTablaVehiculo();
+            
+            }catch(ClassNotFoundException e){
+                
+            }
+        }
+        
+    }//GEN-LAST:event_borrar1MouseClicked
+
+    private void borrar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrar2MouseClicked
+        
+        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea borrar todos los registros de ésta tabla?",
+                null,JOptionPane.WARNING_MESSAGE);
+        
+        if(op==0){
+            
+            try{
+            Conexion con = new Conexion();
+            con.borrarTablaReparaciones();
+            
+            }catch(ClassNotFoundException e){
+                
+            }
+        }
+        
+    }//GEN-LAST:event_borrar2MouseClicked
+
+    private void borrar3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrar3MouseClicked
+       
+        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea borrar todos los registros de ésta tabla?",
+                null,JOptionPane.WARNING_MESSAGE);
+        
+        if(op==0){
+            
+            try{
+            Conexion con = new Conexion();
+            con.borrarTablaHistorial();
+            
+            }catch(ClassNotFoundException e){
+                
+            }
+        }
+    }//GEN-LAST:event_borrar3MouseClicked
+
+    private void borrar4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrar4MouseClicked
+       
+        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea borrar todos los registros de ésta tabla?",
+                null,JOptionPane.WARNING_MESSAGE);
+        
+        if(op==0){
+            
+            try{
+            Conexion con = new Conexion();
+            con.borrarTablaCodigosNFC();
+            
+            }catch(ClassNotFoundException e){
+                
+            }
+        }
+    }//GEN-LAST:event_borrar4MouseClicked
+
+    private void borrar5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrar5MouseClicked
+        
+        
+        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea borrar todos los registros de ésta tabla?",
+                null,JOptionPane.WARNING_MESSAGE);
+        
+        if(op==0){
+            
+            try{
+            Conexion con = new Conexion();
+            con.borrarTablaUsuario();
+            
+            }catch(ClassNotFoundException e){
+                
+            }
+        }
+    }//GEN-LAST:event_borrar5MouseClicked
+
+    private void borrar6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrar6MouseClicked
+       
+        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea borrar todos los registros de ésta tabla?",
+                null,JOptionPane.WARNING_MESSAGE);
+        
+        if(op==0){
+            
+            try{
+            Conexion con = new Conexion();
+            con.borrarTablaIngreso();
+            
+            }catch(ClassNotFoundException e){
+                
+            }
+        }
+    }//GEN-LAST:event_borrar6MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel borrar1;
@@ -422,9 +620,12 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel borrar3;
     private javax.swing.JLabel borrar4;
     private javax.swing.JLabel borrar5;
+    private javax.swing.JLabel borrar6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -438,8 +639,10 @@ public class BorrarTablas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField numCodigos;
     private javax.swing.JTextField numHistorial;
+    private javax.swing.JTextField numIngresos;
     private javax.swing.JTextField numReparaciones;
     private javax.swing.JTextField numUsuarios;
     private javax.swing.JTextField numVehiculos;

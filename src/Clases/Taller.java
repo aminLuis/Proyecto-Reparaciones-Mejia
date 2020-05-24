@@ -25,9 +25,9 @@ public class Taller {
         RegistroVehiculo vehiculo = new RegistroVehiculo();
         
         //admin.setVisible(true);
-        ingreso.setVisible(true);
+        //ingreso.setVisible(true);
         //root.setVisible(true);
-        //login.setVisible(true);
+        login.setVisible(true);
         //vehiculo.setVisible(true);
         
     }

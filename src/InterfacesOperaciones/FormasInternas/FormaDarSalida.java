@@ -193,21 +193,27 @@ public class FormaDarSalida extends javax.swing.JInternalFrame {
         
         try{
             
-            Conexion con = new Conexion();
+            Conexion buscar = new Conexion();
+            
+            ResultSet rs = buscar.obetenerIngresoVehiculo(dispositivo.getDato());
+            
             Historial temp = new Historial();
             
-            while(getCapturarDatos().next()){
+            if(rs.next()){
                 
-                temp.setCodigo(getCapturarDatos().getString("codigo"));
-                temp.setNumInterno(getCapturarDatos().getInt("numInterno"));
+                temp.setCodigo(rs.getString("codigo"));
+                temp.setNumInterno(rs.getInt("numInterno"));
                 temp.setTipo_reparacion(reparacion);
-                temp.setFechaIngreso(getCapturarDatos().getString("fecha"));
+                temp.setFechaIngreso(rs.getString("fecha"));
                 temp.setFechaSalida(fecha.fechaActual());
             }
             
+            Conexion con = new Conexion();
+            con.registrarHistorialVehiculo(temp);
+            cambiarEstadoSalida();
             
-        }catch(SQLException e){
-            
+        }catch(SQLException | ClassNotFoundException e){
+         JOptionPane.showMessageDialog(null,"Error: "+e.getMessage(),null,JOptionPane.ERROR_MESSAGE);
         }
         
     }
@@ -225,6 +231,13 @@ public class FormaDarSalida extends javax.swing.JInternalFrame {
     
     }
     
+    
+    public void cambiarEstadoSalida(){
+        try{
+            Conexion estado = new Conexion();
+            estado.cambiarEstadoSalida(Integer.parseInt(interno.getText()), true);
+            }catch(ClassNotFoundException e){}
+    }
     
     
     @SuppressWarnings("unchecked")
@@ -374,18 +387,11 @@ public class FormaDarSalida extends javax.swing.JInternalFrame {
                 
                 if(op==0){
                   
-                   // agregarHistorial(cate);
-                   Conexion estado = new Conexion();
+                    agregarHistorial(cate);
+                   
                    agregado = true;
                    
                    JOptionPane.showMessageDialog(null, "Se ha guardado la catagoría en historial");
-                   
-                   /*
-                   try{
-                   estado.cambiarEstadoSalida(Integer.parseInt(interno.getText()), true);
-                   }catch(ClassNotFoundException e){}
-                   */
-                    
                     
                 }
                 
@@ -409,14 +415,14 @@ public class FormaDarSalida extends javax.swing.JInternalFrame {
        if(!agregado){
            JOptionPane.showMessageDialog(null, "No se agregó ninguna categoría\n"+
                    "El vehículo seguirá en la lista de ingresos",null,JOptionPane.WARNING_MESSAGE);
-           
+          
            this.dispose();
        }else{
            
            Conexion con = new Conexion();
          
              eliminarDeListaIngreso();
-           
+            agregado = false;
            this.dispose();
            
        }

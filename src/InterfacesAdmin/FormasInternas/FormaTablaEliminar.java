@@ -150,6 +150,7 @@ public class FormaTablaEliminar extends javax.swing.JInternalFrame {
             Conexion con = new Conexion();
             
             con.eliminarRegistro(numInterno);
+            con.eliminarNFC(numInterno);
             mostrarTabla();
             
         }catch(ClassNotFoundException e){

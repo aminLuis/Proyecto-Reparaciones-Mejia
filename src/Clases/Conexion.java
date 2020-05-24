@@ -218,6 +218,14 @@ public ResultSet obtenerDatosTodos()throws ClassNotFoundException{
 } 
  
 
+/**
+ *  MÉTODO PARA ELIMINAR UN VEHÍCULO DE LA BASE DE DATOS EN LA TABLA
+ *  "vehiculo" POR MEDIO DE SU NÚMERO INTERNO
+ * 
+     * @param numInterno
+     * @throws java.lang.ClassNotFoundException
+ **/
+
 public void eliminarRegistro(int numInterno)throws ClassNotFoundException{
     
     try{
@@ -490,12 +498,13 @@ public void registrarHistorialVehiculo(Historial nuevo)throws ClassNotFoundExcep
         Connection con = conectar();
         PreparedStatement ps;
         
-        ps = con.prepareStatement("INSERT INTO historial (codigo,tipo_reparacion,fechaIngreso,fechaSalida) VALUES (?,?,?,?)");
+        ps = con.prepareStatement("INSERT INTO historial (codigo,numInterno,tipo_reparacion,fechaIngreso,fechaSalida) VALUES (?,?,?,?,?)");
         
         ps.setString(1, nuevo.getCodigo());
-        ps.setString(2, nuevo.getTipo_reparacion());
-        ps.setString(3, nuevo.getFechaIngreso());
-        ps.setString(4, nuevo.getFechaSalida());
+        ps.setInt(2, nuevo.getNumInterno());
+        ps.setString(3, nuevo.getTipo_reparacion());
+        ps.setString(4, nuevo.getFechaIngreso());
+        ps.setString(5, nuevo.getFechaSalida());
         
         ps.executeUpdate();
         ps.close();
@@ -512,7 +521,8 @@ public void registrarHistorialVehiculo(Historial nuevo)throws ClassNotFoundExcep
 
 /**
  *  MÉTODO QUE RETORNA EL HISTORIAL DE UN VEHÍCULO, ES DECIR, TODAS LAS REPARACIONES
- *  QUE ÉSTE HA RECIBIDO CON SUS RESPECTIVAS FECHAS
+ *  QUE ÉSTE HA RECIBIDO CON SUS RESPECTIVAS FECHAS. SE PASA POR PARÁMETRO EL NÚMERO
+ *  INTERNO DEL VEHÍCULO
  * 
      * @param numInterno
      * @return 
@@ -542,6 +552,42 @@ public ResultSet obtenerHistorialVehiculo(int numInterno)throws ClassNotFoundExc
 
 
 /**
+ * 
+ *  MÉTODO QUE RETORNA EL HISTORIAL DE UN VEHÍCULO, ES DECIR, TODAS LAS REPARACIONES
+ *  QUE ÉSTE A RECIBIDO CON SUS RESPECTIVAS FECHAS. SE PASA POR PARÁMETRO EL CÓDIGO
+ *  NFC ASOCIADO AL VEHÍCULO
+ * 
+ * 
+     * @param nfc
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public ResultSet obtenerHistorialVehiculo(String nfc)throws ClassNotFoundException{
+    
+    ResultSet rs = null;
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("SELECT *FROM historial WHERE codigo=?");
+        
+        ps.setString(1, nfc);
+        rs = ps.executeQuery();
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+    return rs;
+}
+
+
+
+/**
  *  MÉTODO PARA CAMBIAR CÓDIGO NFC EN LA BASE DE DATOS, EN CASO DE QUE EL
  *  ORIGINAL SE HAYA PERDIDO
  * 
@@ -559,7 +605,7 @@ public void cambiarNFCenHistorial(int numInterno, String nuevo)throws ClassNotFo
         Connection con = conectar();
         PreparedStatement ps;
         
-        ps = con.prepareStatement("UPDATE codigosnfc SET(codigo) WHERE numInterno=?");
+        ps = con.prepareStatement("UPDATE codigosnfc SET codigo=? WHERE numInterno=?");
         
         ps.setInt(1, numInterno);
         ps.setString(2, nuevo);
@@ -575,6 +621,105 @@ public void cambiarNFCenHistorial(int numInterno, String nuevo)throws ClassNotFo
     }
     
 }
+
+
+/**
+ *  MÉTODO QUE DEVUELVE EL HISTORIAL DE UN VEHÍCULO EN DETERMINANDA FECHA, A PARTIR 
+ *  DE SU CÓDIGO NFC Y LA FECHA DE SALIDA. 
+ * 
+     * @param nfc
+     * @param fecha
+     * @return 
+     * @throws java.lang.ClassNotFoundException 
+ **/
+
+public ResultSet buscarHistorialPorFecha(String nfc, String fecha)throws ClassNotFoundException{
+    
+    ResultSet rs = null;
+    
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("SELECT *FROM historial WHERE codigo=? AND fechaSalida=?");
+        
+        ps.setString(1, nfc);
+        ps.setString(2, fecha);
+        
+        rs = ps.executeQuery();
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+    return rs;
+}
+
+
+
+/**
+ *  MÉTODO QUE DEVUELVE EL HISTORIAL DE UN VEHÍCULO EN DETERMINANDA FECHA, A PARTIR 
+ *  DE SU NÚMERO INTERNO Y LA FECHA DE SALIDA. 
+ * 
+     * @param numInterno
+     * @param fecha
+     * @return 
+     * @throws java.lang.ClassNotFoundException 
+ **/
+
+
+public ResultSet buscarHistorialPorFecha(int numInterno, String fecha)throws ClassNotFoundException{
+    
+    ResultSet rs = null;
+    
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("SELECT *FROM historial WHERE numInterno=? AND fechaSalida=?");
+        
+            ps.setInt(1, numInterno);
+            ps.setString(2, fecha);
+
+        rs = ps.executeQuery();
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+    return rs;
+}
+
+
+
+
+public void eliminarHistorialPorIde(int ide)throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("DELETE FROM historial WHERE ideHistorial=?");
+        
+        ps.setInt(1, ide);
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se la eliminado el historial");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
+
 
 
 
@@ -722,26 +867,32 @@ public void eliminarIngresoVehiculo(int numInterno)throws ClassNotFoundException
  *  "ingreso"
  * 
      * @param numInterno
-     * @param salida
+     * @param estado
      * @throws java.lang.ClassNotFoundException
  **/
 
 
-public void cambiarEstadoSalida(int numInterno, boolean salida )throws ClassNotFoundException{
+public void cambiarEstadoSalida(int numInterno, boolean estado )throws ClassNotFoundException{
     
     try{
         
         Connection con = conectar();
         PreparedStatement ps;
         
-            ps = con.prepareStatement("UPDATE ingreso SET(salida) WHERE numInterno=?");
+            ps = con.prepareStatement("UPDATE ingreso SET salida=? WHERE numInterno=?");
 
-            ps.setBoolean(1, salida);
-
+            ps.setBoolean(1, estado);
+            ps.setInt(2, numInterno);
+            
             ps.executeUpdate();
         
+            ps.close();
+            
     }catch(SQLException e){
-        mensajeErrorSQL(e);   
+        //mensajeErrorSQL(e);
+        
+        JOptionPane.showMessageDialog(null, "TABLA ingreso. Error: "+e.getMessage(),null,JOptionPane.ERROR_MESSAGE);
+        
     }
     
     
@@ -964,13 +1115,22 @@ public void eliminarNFC(int numInterno)throws ClassNotFoundException{
         
         ps.close();
         
-        JOptionPane.showMessageDialog(null, "Se ha eliminado el código");
+        JOptionPane.showMessageDialog(null, "Se ha eliminado el código de la tabla 'codigosnfc'");
         
     }catch(SQLException e){
         mensajeErrorSQL(e);
     }
     
 }
+
+
+
+/**
+ *  MÉTODO PARA CONTAR LA TOTALIDAD DE LOS REGISTROS DE LA TABLA
+ *  "vehiculo" EN LA BASE DATOS
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
 
 
 
@@ -1002,6 +1162,13 @@ public int contarRegistrosVehiculos()throws ClassNotFoundException{
 }
 
 
+/**
+ *  MÉTODO PARA CONTAR LA TOTALIDAD DE LOS REGISTROS DE LA TABLA
+ *  "reparaciones" EN LA BASE DATOS
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
 
 public int contarRegistrosReparaciones()throws ClassNotFoundException{
     
@@ -1029,6 +1196,13 @@ public int contarRegistrosReparaciones()throws ClassNotFoundException{
     
     return cont;
 }
+
+/**
+ *  MÉTODO PARA CONTAR LA TOTALIDAD DE LOS REGISTROS DE LA TABLA
+ *  "usuario" EN LA BASE DATOS
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
 
 
 public int contarRegistrosUsuarios()throws ClassNotFoundException{
@@ -1058,6 +1232,296 @@ public int contarRegistrosUsuarios()throws ClassNotFoundException{
     return cont;
 }
 
+
+/**
+ *  MÉTODO PARA CONTAR LA TOTALIDAD DE LOS REGISTROS DE LA TABLA
+ *  "historial" EN LA BASE DATOS
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public int contarRegistrosHistorial()throws ClassNotFoundException{
+    
+        int cont = 0;
+
+        try{
+
+            Connection con = conectar();    
+            PreparedStatement ps;  
+            ResultSet rs;
+            
+            ps = con.prepareStatement("SELECT *FROM historial");
+
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                cont++;
+            }
+            
+            ps.close();
+
+        }catch(SQLException e){
+            mensajeErrorSQL(e);
+        }
+    
+    return cont;
+}
+
+
+
+/**
+ *  MÉTODO PARA CONTAR LA TOTALIDAD DE LOS REGISTROS DE LA TABLA
+ *  "codigosnfc" EN LA BASE DATOS
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public int contarRegistrosCodigosNFC()throws ClassNotFoundException{
+    
+        int cont = 0;
+
+        try{
+
+            Connection con = conectar();    
+            PreparedStatement ps;  
+            ResultSet rs;
+            
+            ps = con.prepareStatement("SELECT *FROM codigosnfc");
+
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                cont++;
+            }
+            
+            ps.close();
+
+        }catch(SQLException e){
+            mensajeErrorSQL(e);
+        }
+    
+    return cont;
+}
+
+
+
+/**
+ *  MÉTODO PARA CONTAR LA TOTALIDAD DE LOS REGISTROS DE LA TABLA
+ *  "ingreso" EN LA BASE DATOS
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public int contarRegistrosIngresos()throws ClassNotFoundException{
+    
+        int cont = 0;
+
+        try{
+
+            Connection con = conectar();    
+            PreparedStatement ps;  
+            ResultSet rs;
+            
+            ps = con.prepareStatement("SELECT *FROM ingreso");
+
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                cont++;
+            }
+            
+            ps.close();
+
+        }catch(SQLException e){
+            mensajeErrorSQL(e);
+        }
+    
+    return cont;
+}
+
+
+/**
+ *  MÉTODO QUE BORRA TODOS LOS REGISTROS DE LA TABLA "vehiculo" EN LA 
+ *  BASE DE DATOS.
+ * 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public void borrarTablaVehiculo()throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("DELETE *FROM vehiculo");
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se han eliminado todos los registros en la tabla 'vehiculo'");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
+
+
+/**
+ *  MÉTODO QUE BORRA TODOS LOS REGISTROS DE LA TABLA "reparaciones" EN LA 
+ *  BASE DE DATOS.
+ * 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public void borrarTablaReparaciones()throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("DELETE *FROM reparaciones");
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se han eliminado todos los registros en la tabla 'reparaciones'");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
+
+
+/**
+ *  MÉTODO QUE BORRA TODOS LOS REGISTROS DE LA TABLA "codigosnfc" EN LA 
+ *  BASE DE DATOS.
+ * 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public void borrarTablaCodigosNFC()throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("DELETE *FROM codigosnfc");
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se han eliminado todos los registros en la tabla 'codigosnfc'");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
+
+/**
+ *  MÉTODO QUE BORRA TODOS LOS REGISTROS DE LA TABLA "ingreso" EN LA 
+ *  BASE DE DATOS.
+ * 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public void borrarTablaIngreso()throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("DELETE *FROM ingreso");
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se han eliminado todos los registros en la tabla 'ingreso'");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
+
+
+
+/**
+ *  MÉTODO QUE BORRA TODOS LOS REGISTROS DE LA TABLA "historial" EN LA 
+ *  BASE DE DATOS.
+ * 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public void borrarTablaHistorial()throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("DELETE *FROM historial");
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se han eliminado todos los registros en la tabla 'historial'");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
+
+
+
+/**
+ *  MÉTODO QUE BORRA TODOS LOS REGISTROS DE LA TABLA "usuario" EN LA 
+ *  BASE DE DATOS.
+ * 
+     * @throws java.lang.ClassNotFoundException
+ **/
+
+
+public void borrarTablaUsuario()throws ClassNotFoundException{
+    
+    try{
+        
+        Connection con = conectar();
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("DELETE *FROM usuario");
+        
+        ps.executeUpdate();
+        
+        ps.close();
+        
+        JOptionPane.showMessageDialog(null, "Se han eliminado todos los registros en la tabla 'usuario'");
+        
+    }catch(SQLException e){
+        mensajeErrorSQL(e);
+    }
+    
+}
 
 
 

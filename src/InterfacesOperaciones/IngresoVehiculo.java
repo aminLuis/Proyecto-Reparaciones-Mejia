@@ -8,6 +8,7 @@ import InterfacesOperaciones.FormasInternas.FormaIngresar;
 import javax.swing.JOptionPane;
 import InterfacesOperaciones.FormasInternas.FormaDarSalida;
 import InterfacesOperaciones.FormasInternas.FormaTablaIngresos;
+import InterfacesOperaciones.FormasInternas.FormaTablaHistorial;
 
 
 /**
@@ -26,6 +27,9 @@ public class IngresoVehiculo extends javax.swing.JFrame {
     FormaDarSalida salida;
     FormaIngresar ingreso;
     FormaTablaIngresos tabla;
+    FormaTablaHistorial tablaHistorial;
+            
+            
     
     public int mostrandoComponentes(){
         
@@ -62,6 +66,15 @@ public class IngresoVehiculo extends javax.swing.JFrame {
         }catch(NullPointerException e){
             
         }
+        
+         try{
+            if(tablaHistorial.isShowing()){
+                cont++;
+            }
+        }catch(NullPointerException e){
+            
+        }
+        
         
         return cont;
     }
@@ -100,6 +113,15 @@ public class IngresoVehiculo extends javax.swing.JFrame {
         }catch(NullPointerException e){
             
         }
+        
+        try{
+            if(tablaHistorial.isShowing()){
+                tablaHistorial.dispose();
+            }
+        }catch(NullPointerException e){
+            
+        }
+        
     }
     
     
@@ -219,13 +241,13 @@ public class IngresoVehiculo extends javax.swing.JFrame {
                 labelSalidaMouseExited(evt);
             }
         });
-        getContentPane().add(labelSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 69, 71));
+        getContentPane().add(labelSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 69, 71));
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Historial");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 70, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 140, 70, -1));
 
         labelIngreso.setBackground(new java.awt.Color(255, 255, 255));
         labelIngreso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -242,13 +264,13 @@ public class IngresoVehiculo extends javax.swing.JFrame {
                 labelIngresoMouseExited(evt);
             }
         });
-        getContentPane().add(labelIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 69, 71));
+        getContentPane().add(labelIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 69, 71));
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("En lista");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 70, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 140, 70, -1));
 
         labelLista.setBackground(new java.awt.Color(255, 255, 255));
         labelLista.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -265,19 +287,22 @@ public class IngresoVehiculo extends javax.swing.JFrame {
                 labelListaMouseExited(evt);
             }
         });
-        getContentPane().add(labelLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, 69, 71));
+        getContentPane().add(labelLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 69, 71));
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Ingreso");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 130, 60, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 60, -1));
 
         labelHistorial.setBackground(new java.awt.Color(255, 255, 255));
         labelHistorial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/historial 64px.png"))); // NOI18N
         labelHistorial.setOpaque(true);
         labelHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelHistorialMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 labelHistorialMouseEntered(evt);
             }
@@ -285,35 +310,34 @@ public class IngresoVehiculo extends javax.swing.JFrame {
                 labelHistorialMouseExited(evt);
             }
         });
-        getContentPane().add(labelHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 69, 71));
+        getContentPane().add(labelHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 60, 69, 71));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Salida");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 70, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 140, 70, -1));
 
         labelOpciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        getContentPane().add(labelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 870, 120));
+        getContentPane().add(labelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 492, 120));
 
-        panelPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         panelPrincipal.setOpaque(false);
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1348, Short.MAX_VALUE)
+            .addGap(0, 1350, Short.MAX_VALUE)
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 518, Short.MAX_VALUE)
+            .addGap(0, 520, Short.MAX_VALUE)
         );
 
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1350, 520));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo 29.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo10.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, 1370, 710));
 
         pack();
@@ -491,6 +515,34 @@ public class IngresoVehiculo extends javax.swing.JFrame {
     private void labelHistorialMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelHistorialMouseExited
         animacion.eventoMouseExited(labelHistorial);
     }//GEN-LAST:event_labelHistorialMouseExited
+
+    private void labelHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelHistorialMouseClicked
+        
+        if(mostrandoComponentes()>0){
+            
+             int op = JOptionPane.showConfirmDialog(null, "¿Desea cerrar la forma actual?","Advertencia",JOptionPane.WARNING_MESSAGE);
+            
+            if(op==0){
+                
+                validarGuardadoHistorial();
+                
+                validarComponentes();
+                
+                tablaHistorial = new FormaTablaHistorial();
+                panelPrincipal.add(tablaHistorial);
+                tablaHistorial.setLocation(250, 10);
+                tablaHistorial.setVisible(true);
+            }
+            
+        }else{
+            
+                tablaHistorial = new FormaTablaHistorial();
+                panelPrincipal.add(tablaHistorial);
+                tablaHistorial.setLocation(250, 10);
+                tablaHistorial.setVisible(true);    
+        }
+        
+    }//GEN-LAST:event_labelHistorialMouseClicked
 
    
 
