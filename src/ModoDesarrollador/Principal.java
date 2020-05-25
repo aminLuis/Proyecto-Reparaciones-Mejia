@@ -420,7 +420,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_labelMinimizarMouseExited
 
     private void labelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseClicked
-        System.exit(0);
+       int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?",null,JOptionPane.WARNING_MESSAGE);
+        
+        if(op==0){
+            System.exit(0);
+        }
     }//GEN-LAST:event_labelCerrarMouseClicked
 
     private void labelCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseEntered

@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import InterfacesOperaciones.FormasInternas.FormaDarSalida;
 import InterfacesOperaciones.FormasInternas.FormaTablaIngresos;
 import InterfacesOperaciones.FormasInternas.FormaTablaHistorial;
-
+import Login.Log;
 
 /**
  *
@@ -165,6 +165,10 @@ public class IngresoVehiculo extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         labelOpciones = new javax.swing.JLabel();
         panelPrincipal = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        labelInicio = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -336,6 +340,41 @@ public class IngresoVehiculo extends javax.swing.JFrame {
 
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1350, 520));
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelInicio.setBackground(new java.awt.Color(255, 255, 255));
+        labelInicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/finalizar 32px.png"))); // NOI18N
+        labelInicio.setOpaque(true);
+        labelInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelInicioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelInicioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelInicioMouseExited(evt);
+            }
+        });
+        jPanel1.add(labelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 33, 33));
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 3, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Salir");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 50, -1));
+
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/acceso directo.png"))); // NOI18N
+        jLabel7.setOpaque(true);
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 11, 33, 33));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, 130, 70));
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo10.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, 1370, 710));
@@ -353,7 +392,11 @@ public class IngresoVehiculo extends javax.swing.JFrame {
 
     private void labelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseClicked
         
-        try{
+        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?",null,JOptionPane.WARNING_MESSAGE);
+        
+        if(op==0){
+            
+            try{
         
         
             if(salida.getAgregado()){
@@ -373,6 +416,15 @@ public class IngresoVehiculo extends javax.swing.JFrame {
         }catch(NullPointerException e){
             System.exit(0);
         }
+            
+            
+            
+            
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_labelCerrarMouseClicked
 
     private void labelCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseEntered
@@ -544,17 +596,45 @@ public class IngresoVehiculo extends javax.swing.JFrame {
         
     }//GEN-LAST:event_labelHistorialMouseClicked
 
+    private void labelInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelInicioMouseClicked
+       
+        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?",null,JOptionPane.WARNING_MESSAGE);
+        
+        if(op==0){
+         
+            Log login = new Log();
+        
+             login.setVisible(true);
+
+            this.dispose();
+        }
+        
+        
+    }//GEN-LAST:event_labelInicioMouseClicked
+
+    private void labelInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelInicioMouseEntered
+        animacion.eventoMouseEntered(labelInicio);
+    }//GEN-LAST:event_labelInicioMouseEntered
+
+    private void labelInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelInicioMouseExited
+        animacion.eventoMouseExited(labelInicio);
+    }//GEN-LAST:event_labelInicioMouseExited
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelCerrar;
     private javax.swing.JLabel labelHistorial;
     private javax.swing.JLabel labelIngreso;
+    private javax.swing.JLabel labelInicio;
     private javax.swing.JLabel labelLista;
     private javax.swing.JLabel labelMenu;
     private javax.swing.JLabel labelMenuBar;
